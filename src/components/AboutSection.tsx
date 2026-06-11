@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { folders } from "@/lib/projects";
 
 const focusAreas = [
   "Product Design",
@@ -100,6 +101,47 @@ export default function AboutSection() {
           </div>
         </motion.div>
       </div>
+
+      {/* selected experience */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+        className="relative max-w-6xl mx-auto mt-20 md:mt-28"
+      >
+        <span className="inline-block font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] bg-cream border-2 border-ink rounded-full px-4 py-1.5 rotate-1 shadow-[2px_2px_0_var(--ink)] mb-8">
+          Selected experience
+        </span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {folders.map((folder, i) => (
+            <motion.div
+              key={folder.id}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="border-2 border-ink rounded-sm p-5 md:p-6 bg-cream shadow-[5px_6px_0_rgba(34,28,20,0.12)]"
+              style={{ transform: `rotate(${i % 2 === 0 ? -1 : 1}deg)` }}
+            >
+              <span
+                className="inline-block text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border-2 border-ink mb-3"
+                style={{ background: folder.color, color: folder.textColor }}
+              >
+                {folder.number}
+              </span>
+              <h4 className="font-display text-xl md:text-2xl uppercase leading-tight">
+                {folder.title}
+              </h4>
+              <p className="text-sm md:text-base text-ink/70 mt-2">
+                {folder.intro}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }

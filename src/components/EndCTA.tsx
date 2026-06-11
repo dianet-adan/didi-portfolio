@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -54,54 +55,22 @@ export default function EndCTA() {
         </motion.p>
       </div>
 
-      {/* illustration */}
+      {/* photo */}
       <div className="relative max-w-6xl mx-auto flex justify-center my-10 md:my-14">
         <motion.div
-          initial={{ opacity: 0, scale: 0.85, rotate: -16 }}
-          whileInView={{ opacity: 1, scale: 1, rotate: -8 }}
+          initial={{ opacity: 0, scale: 0.9, rotate: -10 }}
+          whileInView={{ opacity: 1, scale: 1, rotate: -4 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "backOut" }}
-          className="relative w-40 sm:w-48 md:w-56"
+          className="relative w-56 sm:w-64 md:w-80 aspect-[4/5] border-4 border-paper shadow-[10px_14px_0_rgba(0,0,0,0.3)] overflow-hidden"
         >
-          <svg viewBox="0 0 240 420" className="w-full h-auto" aria-hidden="true">
-            {/* cord */}
-            <path
-              d="M120 320 C 160 345, 80 365, 120 390 C 160 415, 90 430, 130 450"
-              fill="none"
-              stroke="var(--ink)"
-              strokeWidth="7"
-              strokeLinecap="round"
-            />
-            {/* earpiece */}
-            <rect x="50" y="10" width="140" height="110" rx="26" fill="var(--red)" stroke="var(--ink)" strokeWidth="4" />
-            {/* handle */}
-            <rect x="93" y="100" width="54" height="130" fill="var(--red)" stroke="var(--ink)" strokeWidth="4" />
-            {/* mouthpiece */}
-            <rect x="50" y="210" width="140" height="110" rx="26" fill="var(--red)" stroke="var(--ink)" strokeWidth="4" />
-            {/* speaker holes */}
-            {[0, 1, 2, 3].map((col) =>
-              [0, 1, 2].map((row) => (
-                <circle
-                  key={`top-${col}-${row}`}
-                  cx={75 + col * 30}
-                  cy={42 + row * 18}
-                  r="4"
-                  fill="var(--yellow)"
-                />
-              ))
-            )}
-            {[0, 1, 2, 3].map((col) =>
-              [0, 1, 2].map((row) => (
-                <circle
-                  key={`bottom-${col}-${row}`}
-                  cx={75 + col * 30}
-                  cy={242 + row * 18}
-                  r="4"
-                  fill="var(--yellow)"
-                />
-              ))
-            )}
-          </svg>
+          <Image
+            src="/images/base/phone-call.jpg"
+            alt="Orange retro telephone receiver against a blue sky"
+            fill
+            sizes="(max-width: 768px) 60vw, 320px"
+            className="object-cover"
+          />
 
           {/* ring sticker */}
           <motion.div
@@ -109,7 +78,7 @@ export default function EndCTA() {
             whileInView={{ opacity: 1, scale: 1, rotate: 12 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4, ease: "backOut" }}
-            className="absolute -top-2 -right-10 sm:-right-14 rotate-12 rounded-full border-2 border-ink bg-yellow text-ink font-body font-extrabold uppercase text-xs md:text-sm px-3 py-2 shadow-[3px_3px_0_var(--ink)]"
+            className="absolute -top-3 -right-8 sm:-right-10 rotate-12 rounded-full border-2 border-ink bg-yellow text-ink font-body font-extrabold uppercase text-xs md:text-sm px-3 py-2 shadow-[3px_3px_0_var(--ink)]"
           >
             Ring ring!
           </motion.div>
@@ -120,7 +89,7 @@ export default function EndCTA() {
             whileInView={{ opacity: 1, rotate: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5, ease: "backOut" }}
-            className="absolute -bottom-4 -left-8 sm:-left-12 text-4xl md:text-5xl text-yellow"
+            className="absolute -bottom-5 -left-6 sm:-left-8 text-4xl md:text-5xl text-yellow drop-shadow-[2px_2px_0_var(--ink)]"
           >
             &#9733;
           </motion.span>
@@ -156,10 +125,10 @@ export default function EndCTA() {
           hello@dianetadan.com
         </a>
         <Link
-          href="/#archive"
+          href="/projects"
           className="inline-flex items-center gap-2 font-body font-extrabold uppercase tracking-widest text-sm md:text-base bg-paper text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
         >
-          Back to the archive
+          Browse the archive
         </Link>
       </motion.div>
 

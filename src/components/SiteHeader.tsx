@@ -4,9 +4,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const links = [
-  { label: "Archive", href: "/#archive" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Projects", href: "/projects" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function SiteHeader() {
@@ -21,7 +21,7 @@ export default function SiteHeader() {
         href="/"
         className="font-display text-lg md:text-xl tracking-wide bg-paper/90 backdrop-blur border-2 border-ink rounded-full px-4 py-1.5 shadow-[3px_3px_0_var(--ink)] -rotate-1"
       >
-        DIANET AD&Aacute;N
+        DIDI
       </Link>
 
       <nav className="hidden md:flex items-center gap-3">
@@ -35,13 +35,20 @@ export default function SiteHeader() {
             {link.label}
           </Link>
         ))}
+        <a
+          href="/cv/dianet-adan-cv.pdf"
+          download
+          className="font-body font-semibold text-sm uppercase tracking-wide bg-yellow text-ink border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--ink)] transition-transform rotate-1"
+        >
+          Download CV
+        </a>
       </nav>
 
       <Link
-        href="/#contact"
+        href="/projects"
         className="md:hidden font-body font-semibold text-sm uppercase tracking-wide bg-red text-paper border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] rotate-1"
       >
-        Contact
+        Projects
       </Link>
     </motion.header>
   );

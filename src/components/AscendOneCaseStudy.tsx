@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ascendOne } from "@/lib/projects";
+import { ascendOne, projects } from "@/lib/projects";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -11,6 +11,10 @@ const fadeUp = {
 };
 
 export default function AscendOneCaseStudy() {
+  const project = projects.find((p) => p.slug === "ascendone")!;
+  const index = projects.findIndex((p) => p.slug === "ascendone");
+  const nextProject = projects[(index + 1) % projects.length];
+
   return (
     <section className="relative bg-blue text-paper px-5 md:px-10 pt-32 pb-24 md:pb-32 overflow-hidden">
       <div className="grid-paper-dark absolute inset-0 opacity-40 pointer-events-none" />
@@ -27,13 +31,13 @@ export default function AscendOneCaseStudy() {
 
       <div className="relative max-w-6xl mx-auto">
         <Link
-          href="/#archive"
+          href="/projects"
           className="inline-flex items-center gap-2 font-body font-bold text-sm uppercase tracking-widest border-b-2 border-paper/40 pb-0.5 hover:border-paper transition-colors"
         >
-          &larr; Back to archive
+          &larr; All projects
         </Link>
 
-        {/* stamp */}
+        {/* project hero */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -68,6 +72,7 @@ export default function AscendOneCaseStudy() {
           {ascendOne.type}
         </motion.p>
 
+        {/* role */}
         <motion.p
           variants={fadeUp}
           initial="hidden"
@@ -79,6 +84,7 @@ export default function AscendOneCaseStudy() {
           {ascendOne.role}
         </motion.p>
 
+        {/* collaboration */}
         <motion.p
           variants={fadeUp}
           initial="hidden"
@@ -90,7 +96,45 @@ export default function AscendOneCaseStudy() {
           {ascendOne.collaboration}
         </motion.p>
 
-        {/* main grid: text + visual */}
+        {/* cover image */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="relative w-full aspect-[16/10] mt-12 -rotate-1 shadow-[10px_14px_0_rgba(0,0,0,0.3)]"
+        >
+          <div className="relative w-full h-full overflow-hidden rounded-sm border border-paper/10">
+            <Image
+              src={project.image}
+              alt={ascendOne.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 1100px"
+              className="object-cover"
+              priority
+            />
+          </div>
+        </motion.div>
+
+        {/* scope */}
+        <div className="mt-14">
+          <h2 className="font-display text-2xl md:text-3xl uppercase mb-4">
+            Scope
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {ascendOne.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[11px] md:text-xs font-bold uppercase tracking-wide border border-paper/30 rounded-full px-3 py-1.5 text-paper/80"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* brief / context + challenge */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-14 items-start">
           <motion.div
             variants={fadeUp}
@@ -102,18 +146,18 @@ export default function AscendOneCaseStudy() {
           >
             <div className="bg-paper text-ink rounded-sm border-2 border-ink p-5 md:p-6 shadow-[6px_8px_0_rgba(0,0,0,0.25)] -rotate-1">
               <h3 className="font-display text-2xl md:text-3xl uppercase mb-2">
-                The Challenge
+                Brief
               </h3>
               <p className="text-base md:text-lg text-ink/80">
-                {ascendOne.challenge}
+                {project.brief}
               </p>
             </div>
             <div className="bg-paper text-ink rounded-sm border-2 border-ink p-5 md:p-6 shadow-[6px_8px_0_rgba(0,0,0,0.25)] rotate-1">
               <h3 className="font-display text-2xl md:text-3xl uppercase mb-2">
-                The Proposal
+                The Challenge
               </h3>
               <p className="text-base md:text-lg text-ink/80">
-                {ascendOne.proposal}
+                {ascendOne.challenge}
               </p>
             </div>
           </motion.div>
@@ -138,33 +182,28 @@ export default function AscendOneCaseStudy() {
           </motion.div>
         </div>
 
-        {/* value points */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-16">
-          {ascendOne.valuePoints.map((point, i) => (
-            <motion.div
-              key={point.title}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-yellow text-ink rounded-sm border-2 border-ink p-5 shadow-[5px_6px_0_rgba(0,0,0,0.2)]"
-              style={{ transform: `rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)` }}
-            >
-              <h4 className="font-display text-xl uppercase">{point.title}</h4>
-              <p className="text-sm mt-1 font-medium">{point.text}</p>
-            </motion.div>
-          ))}
-        </div>
+        {/* design solution */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="mt-16 max-w-3xl"
+        >
+          <h2 className="font-display text-2xl md:text-3xl uppercase mb-3">
+            Design Solution
+          </h2>
+          <p className="text-lg md:text-xl text-paper/80">{ascendOne.proposal}</p>
+        </motion.div>
 
-        {/* feature areas */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="mt-16"
+          className="mt-10"
         >
           <h3 className="font-display text-3xl md:text-5xl uppercase mb-8">
             Inside the platform
@@ -186,46 +225,76 @@ export default function AscendOneCaseStudy() {
           </div>
         </motion.div>
 
-        {/* gallery */}
+        {/* visual gallery */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-16"
+          className="mt-16"
         >
-          {[
-            "/images/ascendone/screens.png",
-            "/images/ascendone/dashboard1.png",
-            "/images/ascendone/dashboard2.png",
-            "/images/ascendone/channels.png",
-          ].map((src) => (
-            <div
-              key={src}
-              className="relative w-full aspect-[4/3] rounded-sm overflow-hidden border border-paper/20 bg-blue-deep"
-            >
-              <Image
-                src={src}
-                alt="AscendONE detail"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
-            </div>
-          ))}
+          <h2 className="font-display text-2xl md:text-3xl uppercase mb-6">
+            Visual gallery
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {(project.gallery ?? []).map((src) => (
+              <div
+                key={src}
+                className="relative w-full aspect-[4/3] rounded-sm overflow-hidden border border-paper/20 bg-blue-deep"
+              >
+                <Image
+                  src={src}
+                  alt="AscendONE detail"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
         </motion.div>
 
-        {/* tags */}
-        <div className="flex flex-wrap gap-2 mt-16">
-          {ascendOne.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-[11px] md:text-xs font-bold uppercase tracking-wide border border-paper/30 rounded-full px-3 py-1.5 text-paper/80"
-            >
-              {tag}
+        {/* outcome / value */}
+        <div className="mt-16">
+          <h2 className="font-display text-2xl md:text-3xl uppercase mb-6">
+            Outcome &amp; Value
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {ascendOne.valuePoints.map((point, i) => (
+              <motion.div
+                key={point.title}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-yellow text-ink rounded-sm border-2 border-ink p-5 shadow-[5px_6px_0_rgba(0,0,0,0.2)]"
+                style={{ transform: `rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)` }}
+              >
+                <h4 className="font-display text-xl uppercase">{point.title}</h4>
+                <p className="text-sm mt-1 font-medium">{point.text}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* next project navigation */}
+        <div className="mt-24 pt-10 border-t-2 border-paper/15">
+          <span className="font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] text-paper/50">
+            Next project
+          </span>
+          <Link
+            href={`/projects/${nextProject.slug}`}
+            className="group mt-3 flex items-center justify-between gap-4"
+          >
+            <h3 className="font-display uppercase leading-none text-[12vw] sm:text-[9vw] md:text-[5.5vw] group-hover:text-yellow transition-colors">
+              {nextProject.title}
+            </h3>
+            <span className="text-3xl md:text-5xl flex-shrink-0 transition-transform group-hover:translate-x-2">
+              &rarr;
             </span>
-          ))}
+          </Link>
         </div>
       </div>
     </section>

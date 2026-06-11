@@ -1,22 +1,16 @@
 import GrainOverlay from "@/components/GrainOverlay";
 import SiteHeader from "@/components/SiteHeader";
-import Hero from "@/components/Hero";
-import ArchiveSection from "@/components/ArchiveSection";
-import SelectedWork from "@/components/SelectedWork";
-import AboutTeaser from "@/components/AboutTeaser";
+import AboutSection from "@/components/AboutSection";
 import ContactTeaser from "@/components/ContactTeaser";
 import SiteFooter from "@/components/SiteFooter";
 
-export default function Home() {
+export default function AboutPage() {
   return (
     <>
       <GrainOverlay />
       <SiteHeader />
-      <main>
-        <Hero />
-        <ArchiveSection />
-        <SelectedWork />
-        <AboutTeaser />
+      <main className="pt-20">
+        <AboutSection />
         <ContactTeaser />
       </main>
       <SiteFooter />

@@ -93,7 +93,7 @@ export default function ProjectDocument({
 
         {/* link */}
         <Link
-          href={`/work/${project.slug}`}
+          href={`/projects/${project.slug}`}
           className="mt-5 inline-flex items-center gap-2 font-body font-extrabold uppercase tracking-widest text-sm border-b-2 border-ink pb-0.5 hover:gap-3 transition-all"
         >
           View case study <span aria-hidden="true">&rarr;</span>

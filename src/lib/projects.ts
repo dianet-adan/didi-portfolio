@@ -16,9 +16,11 @@ export interface Project {
 
 export interface FolderData {
   id: CategoryId;
+  slug: string;
   number: string;
   title: string;
   subtitle: string;
+  intro: string;
   color: string;
   textColor: string;
   image: string;
@@ -157,9 +159,12 @@ export const projects: Project[] = [
 export const folders: FolderData[] = [
   {
     id: "uxui",
+    slug: "ux-ui",
     number: "Folder 01",
     title: "UX/UI Projects",
     subtitle: "Product Design · UX/UI · Digital Experiences",
+    intro:
+      "Digital products and interfaces designed to make complex systems feel clear — from SaaS dashboards to mobile apps for families.",
     color: "var(--yellow)",
     textColor: "var(--ink)",
     image: "/images/base/folder-uxui.png",
@@ -167,9 +172,12 @@ export const folders: FolderData[] = [
   },
   {
     id: "branding",
+    slug: "branding",
     number: "Folder 02",
     title: "Branding Projects",
     subtitle: "Creative Direction · Brand Design · Communication",
+    intro:
+      "Brand systems and identities built from the ground up — typography, palette, packaging and art direction working as one voice.",
     color: "var(--red)",
     textColor: "var(--paper)",
     image: "/images/base/folder-branding.png",
@@ -177,9 +185,12 @@ export const folders: FolderData[] = [
   },
   {
     id: "advertising",
+    slug: "advertising",
     number: "Folder 03",
     title: "Advertising Projects",
     subtitle: "Creative Direction · Social Media · Asset Design",
+    intro:
+      "Campaign and social-first visual storytelling for established brands — translating global identities into culturally-connected content.",
     color: "var(--blue)",
     textColor: "var(--paper)",
     image: "/images/base/folder-advertising.png",
