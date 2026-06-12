@@ -1,5 +1,19 @@
 export type CategoryId = "uxui" | "branding" | "advertising";
 
+export interface BentoShowcase {
+  large: string;
+  brandCard: {
+    background: string;
+    eyebrow: string;
+    title: string;
+    tagline: string;
+    groupLabel: string;
+    items: [string, string][];
+  };
+  bottomMiddle: string;
+  bottomRight: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -11,6 +25,7 @@ export interface Project {
   tags: string[];
   image: string;
   gallery?: string[];
+  bento?: BentoShowcase;
   rotate: number;
 }
 
@@ -90,7 +105,23 @@ export const projects: Project[] = [
       "Brand Architecture",
     ],
     image: "/images/visionary/cover.jpg",
-    gallery: ["/images/visionary/mockup.png"],
+    bento: {
+      large: "/images/visionary/mockup.png",
+      brandCard: {
+        background: "/images/visionary/brand-bg.jpg",
+        eyebrow: "Main Logo",
+        title: "Visionary",
+        tagline: "Design with intention",
+        groupLabel: "Logos per business",
+        items: [
+          ["Visionary", "Studio"],
+          ["Visionary", "Spaces"],
+          ["Visionary", "Eyewear"],
+        ],
+      },
+      bottomMiddle: "/images/visionary/pr-box.png",
+      bottomRight: "/images/visionary/glasses.jpg",
+    },
     rotate: -1.5,
   },
   {

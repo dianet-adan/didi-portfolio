@@ -22,6 +22,21 @@ const fadeUp = {
   show: { opacity: 1, y: 0 },
 };
 
+function OMark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 36"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      className={className}
+    >
+      <rect x="2.5" y="1.5" width="19" height="27" rx="9.5" />
+      <rect x="8" y="32" width="8" height="3" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export default function ProjectCaseStudy({ project }: { project: Project }) {
   const folder = folders.find((f) => f.id === project.category);
   const index = projects.findIndex((p) => p.slug === project.slug);
@@ -158,6 +173,110 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
             ))}
           </div>
         </div>
+
+        {/* brand showcase bento */}
+        {project.bento && (
+          <div className="mt-16">
+            <h2 className="font-display text-2xl md:text-3xl uppercase mb-6">
+              Brand showcase
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 md:gap-5 md:h-[640px]">
+              {/* large mockup */}
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6 }}
+                className="relative md:row-span-2 rounded-2xl overflow-hidden aspect-[4/5] md:aspect-auto md:h-full bg-paper border border-ink/10"
+              >
+                <Image
+                  src={project.bento.large}
+                  alt={`${project.title} product mockup`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 45vw"
+                  className="object-cover"
+                />
+              </motion.div>
+
+              {/* brand identity card */}
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-auto md:h-full"
+              >
+                <Image
+                  src={project.bento.brandCard.background}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, 55vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/55" />
+                <div className="relative h-full flex flex-col items-center justify-center text-center text-paper px-6 py-8 gap-3 md:gap-4">
+                  <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-paper/60">
+                    {project.bento.brandCard.eyebrow}
+                  </span>
+                  <div>
+                    <h3 className="font-display uppercase text-4xl md:text-5xl lg:text-6xl">
+                      {project.bento.brandCard.title}
+                    </h3>
+                    <p className="text-xs md:text-sm uppercase tracking-[0.3em] mt-2 text-paper/80">
+                      {project.bento.brandCard.tagline}
+                    </p>
+                  </div>
+                  <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-paper/60 mt-2">
+                    {project.bento.brandCard.groupLabel}
+                  </span>
+                  <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+                    {project.bento.brandCard.items.map(([line1, line2]) => (
+                      <div key={`${line1}-${line2}`} className="flex items-center gap-2">
+                        <OMark className="w-4 h-6 md:w-5 md:h-7 flex-shrink-0" />
+                        <span className="text-xs md:text-sm font-bold uppercase leading-tight text-left">
+                          {line1}
+                          <br />
+                          {line2}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* bottom row */}
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="grid grid-cols-2 gap-4 md:gap-5 md:h-full"
+              >
+                <div className="relative rounded-2xl overflow-hidden aspect-square md:aspect-auto md:h-full bg-paper border border-ink/10">
+                  <Image
+                    src={project.bento.bottomMiddle}
+                    alt={`${project.title} packaging detail`}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 27vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative rounded-2xl overflow-hidden aspect-square md:aspect-auto md:h-full bg-paper border border-ink/10">
+                  <Image
+                    src={project.bento.bottomRight}
+                    alt={`${project.title} product detail`}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 27vw"
+                    className="object-cover"
+                  />
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        )}
 
         {/* visual gallery */}
         {project.gallery && project.gallery.length > 0 && (

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const links = [
   { label: "Projects", href: "/projects" },
@@ -10,6 +11,8 @@ const links = [
 ];
 
 export default function SiteHeader() {
+  const [open, setOpen] = useState(false);
+
   return (
     <motion.header
       initial={{ y: -40, opacity: 0 }}
@@ -44,12 +47,57 @@ export default function SiteHeader() {
         </a>
       </nav>
 
-      <Link
-        href="/projects"
-        className="md:hidden font-body font-semibold text-sm uppercase tracking-wide bg-red text-paper border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] rotate-1"
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-label="Toggle menu"
+        className="md:hidden relative z-10 font-body font-semibold text-sm uppercase tracking-wide bg-red text-paper border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] rotate-1"
       >
-        Projects
-      </Link>
+        {open ? "Close" : "Menu"}
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              onClick={() => setOpen(false)}
+              className="md:hidden fixed inset-0 bg-paper/90 backdrop-blur-sm"
+            />
+            <motion.nav
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="md:hidden absolute top-full right-5 mt-2 flex flex-col items-end gap-3"
+            >
+            {links.map((link, i) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="font-body font-semibold text-sm uppercase tracking-wide bg-paper border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)]"
+                style={{ transform: `rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)` }}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <a
+              href="/cv/dianet-adan-cv.pdf"
+              download
+              onClick={() => setOpen(false)}
+              className="font-body font-semibold text-sm uppercase tracking-wide bg-yellow text-ink border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] rotate-1"
+            >
+              Download CV
+            </a>
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
