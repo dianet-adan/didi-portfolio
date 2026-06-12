@@ -2,7 +2,7 @@ import GrainOverlay from "@/components/GrainOverlay";
 import SiteHeader from "@/components/SiteHeader";
 import Hero from "@/components/Hero";
 import ArchiveSection from "@/components/ArchiveSection";
-import SelectedWork from "@/components/SelectedWork";
+import ProjectIndex from "@/components/ProjectIndex";
 import AboutTeaser from "@/components/AboutTeaser";
 import ContactTeaser from "@/components/ContactTeaser";
 import SiteFooter from "@/components/SiteFooter";
@@ -15,7 +15,7 @@ export default function Home() {
       <main>
         <Hero />
         <ArchiveSection />
-        <SelectedWork />
+        <ProjectIndex />
         <AboutTeaser />
         <ContactTeaser />
       </main>
