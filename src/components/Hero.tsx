@@ -90,19 +90,17 @@ export default function Hero() {
         depth={-0.6}
         delay={0.5}
         floatDuration={5}
-        className="hidden md:block absolute top-28 lg:top-32 right-[16%] lg:right-[20%] w-72 lg:w-[26rem] xl:w-[30rem] z-10"
+        className="hidden md:block absolute top-16 lg:top-20 right-[10%] lg:right-[14%] w-72 lg:w-[26rem] xl:w-[30rem] z-10"
       >
-        <div className="relative w-full aspect-[4/5] rotate-6 shadow-[10px_14px_0_rgba(34,28,20,0.18)]">
-          <div className="relative w-full h-full overflow-hidden rounded-sm">
-            <Image
-              src="/images/base/me-portrait.jpg"
-              alt="Dianet Adán"
-              fill
-              sizes="480px"
-              className="object-cover"
-              priority
-            />
-          </div>
+        <div className="relative w-full aspect-[941/1672]">
+          <Image
+            src="/images/base/me-portrait-framed.png"
+            alt="Dianet Adán"
+            fill
+            sizes="480px"
+            className="object-contain"
+            priority
+          />
         </div>
       </ParallaxSticker>
 
