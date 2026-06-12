@@ -54,16 +54,10 @@ export default function FolderCard({
         >
           <div className="grid-paper-dark absolute inset-0 opacity-40 pointer-events-none" />
           <h3 className="font-display text-3xl md:text-5xl leading-[0.95] relative">
-            {folder.title}
+            {folder.title.replace(/ Projects$/, "")}
           </h3>
           <p className="text-xs md:text-sm font-bold uppercase tracking-wide mt-3 relative opacity-80">
             {folder.subtitle}
-          </p>
-          <p className="mt-5 text-xs md:text-sm font-extrabold uppercase tracking-[0.2em] relative flex items-center gap-2">
-            {folder.projects.length} files inside
-            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
           </p>
 
           {/* hover label */}
