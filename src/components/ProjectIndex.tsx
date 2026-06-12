@@ -49,7 +49,7 @@ export default function ProjectIndex({
 
   return (
     <section
-      className={`relative px-5 md:px-10 bg-paper grid-paper overflow-hidden ${
+      className={`relative bg-paper overflow-hidden ${
         showHeading ? "py-24 md:py-32" : "pt-10 md:pt-14 pb-24 md:pb-32"
       }`}
     >
@@ -59,7 +59,7 @@ export default function ProjectIndex({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7 }}
-          className="max-w-3xl mb-14 md:mb-20"
+          className="max-w-3xl mb-12 md:mb-16 px-5 md:px-10"
         >
           <span className="inline-block font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] bg-cream border-2 border-ink rounded-full px-4 py-1.5 -rotate-1 shadow-[2px_2px_0_var(--ink)] mb-6">
             Project index
@@ -70,122 +70,91 @@ export default function ProjectIndex({
         </motion.div>
       )}
 
-      <div className="relative max-w-6xl mx-auto border-t-2 border-ink/60">
+      {/* full-bleed index rows */}
+      <div className="border-t-2 border-ink">
         {indexItems.map((item, i) => {
           const { project } = item;
           const isActive = active === item.slug;
           return (
-            <motion.div
+            <Link
               key={item.slug}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
+              href={`/projects/${project.slug}`}
+              onMouseEnter={() => setActive(item.slug)}
+              onMouseLeave={() => setActive(null)}
+              onClick={(e) => handleClick(e, item.slug)}
+              aria-label={`${project.title} — ${item.pill}`}
+              className={`relative block w-full overflow-hidden border-b-2 border-ink transition-[height,background-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                isActive
+                  ? `h-[62vw] sm:h-[36vw] md:h-[26vw] ${activeRowStyle[project.category]}`
+                  : "h-[13vw] sm:h-[9.5vw] md:h-[6.8vw] bg-transparent"
+              }`}
             >
-              <Link
-                href={`/projects/${project.slug}`}
-                onMouseEnter={() => setActive(item.slug)}
-                onMouseLeave={() => setActive(null)}
-                onClick={(e) => handleClick(e, item.slug)}
-                className={`group block border-b-2 border-ink/60 overflow-hidden transition-colors duration-500 ${
-                  isActive ? activeRowStyle[project.category] : "bg-transparent"
-                }`}
-              >
-                {/* compressed row header */}
-                <div className="relative flex items-center justify-between gap-4 px-2 md:px-6 py-2 md:py-3">
-                  <div className="flex items-baseline gap-4 md:gap-8 min-w-0">
-                    <span
-                      className={`font-body font-bold text-xs md:text-sm tabular-nums flex-shrink-0 transition-opacity duration-300 ${
-                        isActive ? "opacity-80" : "opacity-40"
-                      }`}
-                    >
-                      0{i + 1}
-                    </span>
-                    <motion.h3
-                      animate={{ x: isActive ? 16 : 0 }}
-                      transition={{ duration: 0.5, ease }}
-                      className="font-display uppercase leading-[0.82] text-[15vw] sm:text-[11vw] md:text-[7.5vw] lg:text-[6.5vw] -my-1 md:-my-2 whitespace-nowrap"
-                    >
-                      {project.title}
-                    </motion.h3>
-                  </div>
-
-                  <div className="hidden sm:flex items-center gap-4 md:gap-6 flex-shrink-0">
-                    <motion.span
-                      animate={{ y: isActive ? -3 : 0 }}
-                      transition={{ duration: 0.4, ease }}
-                      className={`font-body font-extrabold text-[10px] md:text-xs uppercase tracking-[0.2em] border-2 rounded-full px-3 py-1.5 transition-colors duration-500 ${
-                        isActive
-                          ? activePillStyle[project.category]
-                          : "border-ink/60 text-ink/70 bg-transparent"
-                      }`}
-                    >
-                      {item.pill}
-                    </motion.span>
-                    <motion.span
-                      animate={{
-                        opacity: isActive ? 1 : 0.3,
-                        x: isActive ? 4 : 0,
-                        y: isActive ? -4 : 0,
-                      }}
-                      transition={{ duration: 0.4, ease }}
-                      className="text-2xl md:text-3xl"
-                    >
-                      &#8599;
-                    </motion.span>
-                  </div>
-                </div>
-
-                {/* mobile pill row */}
-                <div className="sm:hidden px-2 pb-2 pl-9">
-                  <span
-                    className={`inline-block font-body font-extrabold text-[10px] uppercase tracking-[0.2em] border-2 rounded-full px-3 py-1 transition-colors duration-500 ${
-                      isActive
-                        ? activePillStyle[project.category]
-                        : "border-ink/60 text-ink/70"
-                    }`}
-                  >
-                    {item.pill}
-                  </span>
-                </div>
-
-                {/* expanding reveal */}
-                <motion.div
-                  initial={false}
-                  animate={{ height: isActive ? "auto" : 0 }}
-                  transition={{ duration: 0.55, ease }}
-                  className="overflow-hidden"
+              {/* giant cropped title strip */}
+              <div className="relative z-10 h-full flex items-center gap-3 md:gap-8 px-4 md:px-10 pointer-events-none">
+                <span
+                  className={`font-body font-bold text-[10px] md:text-sm tabular-nums flex-shrink-0 transition-opacity duration-300 ${
+                    isActive ? "opacity-80" : "opacity-40"
+                  }`}
                 >
-                  <div className="flex flex-col md:flex-row md:items-end gap-5 md:gap-10 px-2 md:px-6 pb-6 md:pb-8 pt-2 md:pt-1 md:pl-[7.5rem]">
-                    <motion.div
-                      animate={{
-                        opacity: isActive ? 1 : 0,
-                        scale: isActive ? 1 : 1.06,
-                        y: isActive ? 0 : 24,
-                      }}
-                      transition={{ duration: 0.55, ease }}
-                      className="relative w-full md:w-[28rem] aspect-[16/9] flex-shrink-0 -rotate-1 border-2 border-ink/80 rounded-sm overflow-hidden shadow-[8px_10px_0_rgba(34,28,20,0.25)]"
-                    >
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 450px"
-                        className="object-cover"
-                      />
-                    </motion.div>
+                  0{i + 1}
+                </span>
+                <motion.h3
+                  animate={{ x: isActive ? 18 : 0 }}
+                  transition={{ duration: 0.5, ease }}
+                  className="font-display uppercase whitespace-nowrap leading-[0.8] text-[15vw] sm:text-[12vw] md:text-[10.5vw]"
+                >
+                  {project.title}
+                </motion.h3>
+                <motion.span
+                  animate={{ y: isActive ? -6 : 0 }}
+                  transition={{ duration: 0.45, ease }}
+                  className={`hidden lg:inline-flex font-body font-extrabold text-[10px] md:text-xs uppercase tracking-[0.2em] border-2 rounded-full px-3 py-1.5 whitespace-nowrap transition-colors duration-500 ${
+                    isActive
+                      ? activePillStyle[project.category]
+                      : "border-ink/60 text-ink/70"
+                  }`}
+                >
+                  {item.pill}
+                </motion.span>
+              </div>
 
-                    <motion.span
-                      animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 12 }}
-                      transition={{ duration: 0.45, ease, delay: isActive ? 0.12 : 0 }}
-                      className="inline-flex items-center gap-2 self-start font-body font-extrabold uppercase tracking-widest text-xs md:text-sm border-b-2 border-current pb-1 mb-1"
-                    >
-                      View case study <span aria-hidden="true">&rarr;</span>
-                    </motion.span>
-                  </div>
-                </motion.div>
-              </Link>
-            </motion.div>
+              {/* image revealed inside the opened row, right side */}
+              <motion.div
+                animate={{
+                  opacity: isActive ? 1 : 0,
+                  scale: isActive ? 1 : 1.08,
+                  y: isActive ? "-50%" : "-40%",
+                }}
+                transition={{ duration: 0.55, ease }}
+                className="pointer-events-none absolute top-1/2 right-4 md:right-12 w-[58%] sm:w-[40%] md:w-[30%] aspect-[16/10] -rotate-2 rounded-sm overflow-hidden border-2 border-ink shadow-[10px_12px_0_rgba(34,28,20,0.3)]"
+              >
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 60vw, 30vw"
+                  className="object-cover"
+                />
+              </motion.div>
+
+              {/* pill on small screens, shown when the row opens */}
+              <motion.span
+                animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 8 }}
+                transition={{ duration: 0.4, ease }}
+                className={`lg:hidden absolute top-3 left-4 md:left-10 inline-flex font-body font-extrabold text-[10px] uppercase tracking-[0.2em] border-2 rounded-full px-3 py-1 whitespace-nowrap ${activePillStyle[project.category]}`}
+              >
+                {item.pill}
+              </motion.span>
+
+              {/* CTA inside the opened row */}
+              <motion.span
+                animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
+                transition={{ duration: 0.45, ease, delay: isActive ? 0.12 : 0 }}
+                className="absolute bottom-3 md:bottom-5 left-4 md:left-[5.5rem] inline-flex items-center gap-2 font-body font-extrabold uppercase tracking-widest text-xs md:text-sm border-b-2 border-current pb-0.5"
+              >
+                View case study <span aria-hidden="true">&rarr;</span>
+              </motion.span>
+            </Link>
           );
         })}
       </div>
