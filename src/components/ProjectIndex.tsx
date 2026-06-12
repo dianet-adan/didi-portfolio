@@ -49,7 +49,7 @@ export default function ProjectIndex({
 
   return (
     <section
-      className={`relative bg-paper overflow-hidden ${
+      className={`relative bg-paper grid-paper overflow-hidden ${
         showHeading ? "py-24 md:py-32" : "pt-10 md:pt-14 pb-24 md:pb-32"
       }`}
     >

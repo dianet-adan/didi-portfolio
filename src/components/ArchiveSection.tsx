@@ -7,7 +7,7 @@ import FolderCard from "./FolderCard";
 
 export default function ArchiveSection() {
   return (
-    <section id="archive" className="relative px-5 md:px-10 py-24 md:py-32 bg-cream">
+    <section id="archive" className="relative px-5 md:px-10 py-24 md:py-32 bg-cream grid-paper">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 items-center">
         {/* text zone, left */}
         <motion.div
