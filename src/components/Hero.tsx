@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useMotionValue } from "framer-motion";
 import { MouseEvent } from "react";
 import RevealLine from "./RevealLine";
@@ -66,22 +67,32 @@ export default function Hero() {
         complex ideas.
       </motion.p>
 
-      {/* scroll cue */}
-      <motion.a
-        href="#archive"
+      {/* main CTAs */}
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1 }}
-        className="mt-12 inline-flex items-center gap-2 self-start font-body font-bold text-sm uppercase tracking-widest border-2 border-ink rounded-full px-5 py-2 bg-yellow shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
+        className="mt-12 flex flex-wrap items-center gap-4 self-start"
       >
-        Open the archive
-        <motion.span
-          animate={{ y: [0, 4, 0] }}
-          transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-2 font-body font-bold text-sm uppercase tracking-widest border-2 border-ink rounded-full px-5 py-2 bg-red text-paper shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
         >
-          &darr;
-        </motion.span>
-      </motion.a>
+          View all projects <span aria-hidden="true">&rarr;</span>
+        </Link>
+        <a
+          href="#archive"
+          className="inline-flex items-center gap-2 font-body font-bold text-sm uppercase tracking-widest border-2 border-ink rounded-full px-5 py-2 bg-yellow shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
+        >
+          Open the archive
+          <motion.span
+            animate={{ y: [0, 4, 0] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            &darr;
+          </motion.span>
+        </a>
+      </motion.div>
 
       {/* floating archive objects */}
       <ParallaxSticker

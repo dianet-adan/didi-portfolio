@@ -32,7 +32,7 @@ export default function ContactTeaser() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="mt-8"
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link
             href="/contact"
@@ -40,6 +40,13 @@ export default function ContactTeaser() {
           >
             Let&apos;s talk <span aria-hidden="true">&rarr;</span>
           </Link>
+          <a
+            href="/cv/dianet-adan-cv.pdf"
+            download
+            className="inline-flex items-center gap-2 font-body font-extrabold uppercase tracking-widest text-sm md:text-base bg-paper text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
+          >
+            Download CV <span aria-hidden="true">&darr;</span>
+          </a>
         </motion.div>
       </div>
     </section>
