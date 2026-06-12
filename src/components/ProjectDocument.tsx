@@ -46,7 +46,7 @@ export default function ProjectDocument({
             alt={project.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
           />
           <span
             className={`absolute top-2 right-2 ${categoryColor[project.category]} text-[10px] md:text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full border border-ink/10`}

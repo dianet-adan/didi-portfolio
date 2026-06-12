@@ -3,8 +3,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState } from "react";
+
+function SoundArcs({ flip = false }: { flip?: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 60 80"
+      fill="none"
+      aria-hidden="true"
+      className={`w-full h-full ${flip ? "-scale-x-100" : ""}`}
+    >
+      <path
+        d="M 38 12 Q 24 38 40 66"
+        stroke="currentColor"
+        strokeWidth="5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 24 4 Q 4 38 26 74"
+        stroke="currentColor"
+        strokeWidth="5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 export default function EndCTA() {
+  const [ringing, setRinging] = useState(false);
   return (
     <section
       id="contact"
@@ -19,10 +45,19 @@ export default function EndCTA() {
           transition={{ duration: 0.7, ease: "backOut" }}
           className="order-2 md:order-1 mx-auto md:mx-0 w-40 sm:w-56 md:w-full max-w-sm"
         >
-          <motion.div
+          <motion.a
+            href="mailto:hello@dianetadan.com"
+            aria-label="Email hello@dianetadan.com"
+            onHoverStart={() => setRinging(true)}
+            onHoverEnd={() => setRinging(false)}
             animate={{ y: [0, -18, 0], rotate: [-8, -4, -8] }}
+            whileHover={{
+              rotate: [0, -7, 7, -7, 7, -4, 0],
+              y: 0,
+              transition: { duration: 0.5, repeat: Infinity },
+            }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative w-full aspect-[1122/1402]"
+            className="relative block w-full aspect-[1122/1402] cursor-pointer"
           >
             <Image
               src="/images/base/telefono.png"
@@ -32,7 +67,71 @@ export default function EndCTA() {
               className="object-contain drop-shadow-[16px_22px_0_rgba(0,0,0,0.25)]"
               priority
             />
-          </motion.div>
+
+            {/* cartoon ringing marks, hand-drawn style */}
+            <motion.div
+              animate={
+                ringing
+                  ? { opacity: [0, 1, 0], scale: [0.6, 1.15, 1.3], x: [-2, -8] }
+                  : { opacity: 0, scale: 0.6 }
+              }
+              transition={
+                ringing
+                  ? { duration: 0.7, repeat: Infinity, ease: "easeOut" }
+                  : { duration: 0.15 }
+              }
+              className="absolute top-[16%] left-[6%] w-[17%] aspect-[60/80] text-yellow drop-shadow-[2px_2px_0_var(--ink)]"
+            >
+              <SoundArcs />
+            </motion.div>
+            <motion.div
+              animate={
+                ringing
+                  ? { opacity: [0, 1, 0], scale: [0.6, 1.15, 1.3], x: [2, 8] }
+                  : { opacity: 0, scale: 0.6 }
+              }
+              transition={
+                ringing
+                  ? { duration: 0.7, repeat: Infinity, ease: "easeOut", delay: 0.15 }
+                  : { duration: 0.15 }
+              }
+              className="absolute top-[2%] right-[2%] w-[22%] aspect-[60/80] text-yellow drop-shadow-[2px_2px_0_var(--ink)]"
+            >
+              <SoundArcs flip />
+            </motion.div>
+
+            {/* little comic stars */}
+            <motion.span
+              animate={
+                ringing
+                  ? { opacity: [0, 1, 0], scale: [0.4, 1.2], rotate: [0, 40] }
+                  : { opacity: 0, scale: 0.4 }
+              }
+              transition={
+                ringing
+                  ? { duration: 0.9, repeat: Infinity, ease: "easeOut", delay: 0.3 }
+                  : { duration: 0.15 }
+              }
+              className="absolute -top-[6%] left-[28%] text-4xl md:text-5xl text-paper drop-shadow-[2px_2px_0_var(--ink)] select-none"
+            >
+              &#10022;
+            </motion.span>
+            <motion.span
+              animate={
+                ringing
+                  ? { opacity: [0, 1, 0], scale: [0.4, 1], rotate: [0, -35] }
+                  : { opacity: 0, scale: 0.4 }
+              }
+              transition={
+                ringing
+                  ? { duration: 0.8, repeat: Infinity, ease: "easeOut", delay: 0.5 }
+                  : { duration: 0.15 }
+              }
+              className="absolute top-[18%] right-[28%] text-2xl md:text-3xl text-yellow drop-shadow-[1px_1px_0_var(--ink)] select-none"
+            >
+              &#10022;
+            </motion.span>
+          </motion.a>
         </motion.div>
 
         {/* text content */}

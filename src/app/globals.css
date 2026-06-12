@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #f3e8d8;
-  --paper: #fbf5ea;
-  --ink: #221c14;
-  --blue: #2a2c84;
-  --blue-deep: #1c1d5c;
-  --red: #c5390f;
-  --yellow: #e6b53c;
-  --brown: #5a4128;
+  /* Palette: Vermelho vívido, Azul, Areia clara, Amarelo, Café torrado */
+  --cream: #e5dbd1;
+  --paper: #f2ece4;
+  --ink: #2a1c0e;
+  --blue: #322470;
+  --blue-deep: #241a54;
+  --red: #bb240a;
+  --yellow: #edcc4d;
+  --brown: #623f1b;
 }
 
 @theme inline {

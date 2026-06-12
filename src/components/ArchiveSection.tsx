@@ -7,7 +7,7 @@ import FolderCard from "./FolderCard";
 
 export default function ArchiveSection() {
   return (
-    <section id="archive" className="relative px-5 md:px-10 py-24 md:py-32 bg-cream grid-paper">
+    <section id="archive" className="relative px-5 md:px-10 pt-24 md:pt-32 pb-10 md:pb-14 bg-cream grid-paper">
       {/* horizontal text zone, top */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

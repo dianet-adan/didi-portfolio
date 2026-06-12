@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useMotionValue } from "framer-motion";
-import { MouseEvent } from "react";
+import { MouseEvent, useRef } from "react";
 import RevealLine from "./RevealLine";
 import ParallaxSticker from "./ParallaxSticker";
 
 export default function Hero() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
   function handleMouseMove(e: MouseEvent<HTMLElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -22,6 +23,7 @@ export default function Hero() {
   return (
     <section
       id="top"
+      ref={sectionRef}
       onMouseMove={handleMouseMove}
       className="relative min-h-[100svh] grid-paper overflow-hidden flex flex-col justify-center px-5 pt-28 pb-20 md:px-10"
     >
@@ -98,6 +100,7 @@ export default function Hero() {
       <ParallaxSticker
         mouseX={mouseX}
         mouseY={mouseY}
+        dragConstraints={sectionRef}
         depth={-0.6}
         delay={0.5}
         floatDuration={5}
@@ -118,6 +121,7 @@ export default function Hero() {
       <ParallaxSticker
         mouseX={mouseX}
         mouseY={mouseY}
+        dragConstraints={sectionRef}
         depth={0.8}
         delay={0.7}
         floatDuration={4.5}
@@ -135,6 +139,7 @@ export default function Hero() {
       <ParallaxSticker
         mouseX={mouseX}
         mouseY={mouseY}
+        dragConstraints={sectionRef}
         depth={0.5}
         delay={0.85}
         floatDuration={6}
@@ -148,6 +153,7 @@ export default function Hero() {
       <ParallaxSticker
         mouseX={mouseX}
         mouseY={mouseY}
+        dragConstraints={sectionRef}
         depth={1.1}
         delay={1}
         floatDuration={3.8}
@@ -161,6 +167,7 @@ export default function Hero() {
       <ParallaxSticker
         mouseX={mouseX}
         mouseY={mouseY}
+        dragConstraints={sectionRef}
         depth={1.4}
         delay={1.1}
         floatDuration={4.2}
