@@ -16,23 +16,23 @@ export default function ArchiveSection() {
         transition={{ duration: 0.7 }}
         className="max-w-4xl mx-auto text-center"
       >
-        <span className="inline-block font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] bg-paper border-2 border-ink rounded-full px-4 py-1.5 rotate-1 shadow-[2px_2px_0_var(--ink)] mb-6">
+        <span className="inline-block font-display font-normal text-xs md:text-sm uppercase tracking-[0.2em] bg-paper border-2 border-ink rounded-full px-4 py-1.5 rotate-1 shadow-[2px_2px_0_var(--ink)] mb-6">
           The Archive
         </span>
-        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] uppercase">
+        <h2 className="type-section">
           Selected work. Sorted by{" "}
           <span className="font-serif-italic text-blue normal-case">
             thinking
           </span>
         </h2>
-        <p className="mt-5 text-lg text-ink/70 max-w-2xl mx-auto">
+        <p className="mt-5 type-body text-ink/70 mx-auto">
           A curated archive of digital products, brand systems and campaign
           work. Open each folder to explore the ideas, process and decisions
           behind the projects.
         </p>
         <Link
           href="/projects"
-          className="mt-8 inline-flex items-center gap-2 font-body font-extrabold uppercase tracking-widest text-sm md:text-base border-2 border-ink rounded-full px-6 py-3 bg-yellow shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
+          className="mt-8 inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base border-2 border-ink rounded-full px-6 py-3 bg-yellow shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
         >
           View all projects <span aria-hidden="true">&rarr;</span>
         </Link>

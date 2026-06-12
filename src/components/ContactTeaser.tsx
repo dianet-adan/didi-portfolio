@@ -12,7 +12,7 @@ export default function ContactTeaser() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="font-body font-extrabold text-xs md:text-sm uppercase tracking-widest"
+          className="font-display font-normal text-xs md:text-sm uppercase tracking-widest"
         >
           Got a project in mind?
         </motion.p>
@@ -22,7 +22,7 @@ export default function ContactTeaser() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="font-display uppercase leading-[0.9] text-[16vw] sm:text-[11vw] md:text-[7vw] text-yellow mt-2"
+          className="type-section text-yellow mt-2"
         >
           Can we talk?
         </motion.h2>
@@ -36,14 +36,14 @@ export default function ContactTeaser() {
         >
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 font-body font-extrabold uppercase tracking-widest text-sm md:text-base bg-yellow text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
+            className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base bg-yellow text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
           >
             Let&apos;s talk <span aria-hidden="true">&rarr;</span>
           </Link>
           <a
             href="/cv/dianet-adan-cv.pdf"
             download
-            className="inline-flex items-center gap-2 font-body font-extrabold uppercase tracking-widest text-sm md:text-base bg-paper text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
+            className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base bg-paper text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
           >
             Download CV <span aria-hidden="true">&darr;</span>
           </a>

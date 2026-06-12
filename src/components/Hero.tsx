@@ -34,22 +34,22 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="mb-6 md:mb-10"
       >
-        <span className="inline-block font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] bg-paper border-2 border-ink rounded-full px-4 py-1.5 -rotate-2 shadow-[2px_2px_0_var(--ink)]">
+        <span className="inline-block font-display font-normal text-xs md:text-sm uppercase tracking-[0.2em] bg-paper border-2 border-ink rounded-full px-4 py-1.5 -rotate-2 shadow-[2px_2px_0_var(--ink)]">
           Portfolio &middot; Selected Works 2026
         </span>
       </motion.div>
 
       {/* headline */}
-      <h1 className="font-display uppercase leading-[0.92] text-ink">
-        <RevealLine delay={0.05} className="text-[15vw] sm:text-[13vw] md:text-[10vw]">
+      <h1 className="text-ink">
+        <RevealLine delay={0.05} className="type-hero">
           Product
         </RevealLine>
-        <RevealLine delay={0.18} className="text-[15vw] sm:text-[13vw] md:text-[10vw]">
+        <RevealLine delay={0.18} className="type-hero">
           Designer
         </RevealLine>
         <RevealLine
           delay={0.32}
-          className="text-[8vw] sm:text-[6vw] md:text-[4.4vw] mt-2 md:mt-4 normal-case"
+          className="type-hero-accent mt-2 md:mt-4"
         >
           <span className="text-ink">&amp; </span>
           <span className="font-serif-italic text-red">Visual Systems</span>
@@ -62,7 +62,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.6 }}
-        className="mt-8 max-w-xl text-xl md:text-2xl font-medium text-ink/80"
+        className="mt-8 type-body text-ink/80"
       >
         Hi, I&apos;m Dianet and I design digital products, interfaces and
         brand-led experiences that bring clarity, structure and personality to
@@ -78,13 +78,13 @@ export default function Hero() {
       >
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 font-body font-bold text-sm uppercase tracking-widest border-2 border-ink rounded-full px-5 py-2 bg-red text-paper shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
+          className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-2 border-ink rounded-full px-5 py-2 bg-red text-paper shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
         >
           View all projects <span aria-hidden="true">&rarr;</span>
         </Link>
         <a
           href="#archive"
-          className="inline-flex items-center gap-2 font-body font-bold text-sm uppercase tracking-widest border-2 border-ink rounded-full px-5 py-2 bg-yellow shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
+          className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-2 border-ink rounded-full px-5 py-2 bg-yellow shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
         >
           Open the archive
           <motion.span
@@ -127,7 +127,7 @@ export default function Hero() {
         floatDuration={4.5}
         className="hidden lg:block absolute top-[40%] left-[37%] z-10"
       >
-        <div className="flex h-20 w-20 md:h-24 md:w-24 -rotate-6 items-center justify-center rounded-full border-2 border-ink bg-red text-center font-body font-extrabold uppercase leading-tight text-paper shadow-[4px_4px_0_var(--ink)] text-sm md:text-base">
+        <div className="flex h-20 w-20 md:h-24 md:w-24 -rotate-6 items-center justify-center rounded-full border-2 border-ink bg-red text-center font-display font-normal uppercase leading-tight text-paper shadow-[4px_4px_0_var(--ink)] text-sm md:text-base">
           Good
           <br />
           Ideas
@@ -145,7 +145,7 @@ export default function Hero() {
         floatDuration={6}
         className="absolute bottom-10 right-[6%] sm:right-[8%] z-10"
       >
-        <div className="rotate-3 rounded-full border-2 border-ink bg-yellow px-5 py-3 font-body font-extrabold uppercase tracking-wide text-ink shadow-[4px_4px_0_var(--ink)] text-sm md:text-base">
+        <div className="rotate-3 rounded-full border-2 border-ink bg-yellow px-5 py-3 font-display font-normal uppercase tracking-wide text-ink shadow-[4px_4px_0_var(--ink)] text-sm md:text-base">
           Make it meaningful
         </div>
       </ParallaxSticker>
@@ -159,7 +159,7 @@ export default function Hero() {
         floatDuration={3.8}
         className="hidden md:block absolute bottom-32 right-[8%] z-10"
       >
-        <div className="-rotate-3 rounded-sm border-2 border-ink bg-blue px-4 py-2 font-body font-bold uppercase tracking-widest text-paper shadow-[3px_3px_0_var(--ink)] text-xs md:text-sm">
+        <div className="-rotate-3 rounded-sm border-2 border-ink bg-blue px-4 py-2 font-display font-normal uppercase tracking-widest text-paper shadow-[3px_3px_0_var(--ink)] text-xs md:text-sm">
           Projects &rarr; 2026
         </div>
       </ParallaxSticker>

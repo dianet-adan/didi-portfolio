@@ -10,6 +10,15 @@
   --red: #bb240a;
   --yellow: #edcc4d;
   --brown: #623f1b;
+
+  /* Typography scale — fluid between mobile (375px) and desktop (1280px+) */
+  --type-hero: clamp(3.625rem, 1rem + 12vw, 11.25rem); /* 58 → 180px */
+  --type-hero-accent: clamp(3rem, 1.7rem + 5.5vw, 5.5rem); /* 48 → 88px */
+  --type-section: clamp(3rem, 1.5rem + 6.5vw, 7rem); /* 48 → 112px */
+  --type-card-title: clamp(2.25rem, 1.45rem + 3.4vw, 4.25rem); /* 36 → 68px */
+  --type-body: clamp(1.0625rem, 0.96rem + 0.45vw, 1.3125rem); /* 17 → 21px */
+  --type-body-lh: clamp(1.625rem, 1.42rem + 0.9vw, 2.125rem); /* 26 → 34px */
+  --type-label: clamp(0.8125rem, 0.76rem + 0.2vw, 0.9375rem); /* 13 → 15px */
 }
 
 @theme inline {
@@ -39,8 +48,9 @@ body {
   background: var(--cream);
   color: var(--ink);
   font-family: var(--font-body), sans-serif;
-  font-size: 18px;
-  line-height: 1.4;
+  font-size: var(--type-body);
+  line-height: var(--type-body-lh);
+  font-weight: 500; /* Quicksand Medium holds up better on the textured beige */
   overflow-x: hidden;
 }
 
@@ -52,6 +62,67 @@ body {
 .font-serif-italic {
   font-family: var(--font-serif), serif;
   font-style: italic;
+}
+
+/* Type roles
+   Anton = structure & hierarchy · Instrument Serif = editorial accent ·
+   Quicksand = body copy. */
+.type-hero {
+  font-family: var(--font-display), sans-serif;
+  font-size: var(--type-hero);
+  line-height: 0.9;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.type-hero-accent {
+  font-family: var(--font-display), sans-serif;
+  font-size: var(--type-hero-accent);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+
+.type-section {
+  font-family: var(--font-display), sans-serif;
+  font-size: var(--type-section);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.type-card-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: var(--type-card-title);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+
+.type-body {
+  font-family: var(--font-body), sans-serif;
+  font-size: var(--type-body);
+  line-height: var(--type-body-lh);
+  letter-spacing: 0;
+  max-width: 42.5rem; /* 680px measure */
+}
+
+.type-label {
+  font-family: var(--font-display), sans-serif;
+  font-size: var(--type-label);
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* Instrument Serif runs optically small next to Anton — nudge accents up */
+.type-hero .font-serif-italic,
+.type-section .font-serif-italic,
+.type-hero-accent .font-serif-italic {
+  font-size: 1.04em;
 }
 
 /* Grid / graph paper texture used across sections */

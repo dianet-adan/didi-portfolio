@@ -47,7 +47,7 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
       <div className="relative max-w-5xl mx-auto">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 font-body font-bold text-sm uppercase tracking-widest border-b-2 border-ink/40 pb-0.5 hover:border-ink transition-colors"
+          className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-b-2 border-ink/40 pb-0.5 hover:border-ink transition-colors"
         >
           &larr; All projects
         </Link>
@@ -59,7 +59,7 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
           whileInView="show"
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.6 }}
-          className={`inline-flex items-center gap-2 -rotate-2 rounded-full border-2 border-ink px-4 py-1.5 font-body text-xs md:text-sm font-extrabold uppercase tracking-[0.2em] shadow-[3px_3px_0_var(--ink)] mt-8 ${categoryColor[project.category]}`}
+          className={`inline-flex items-center gap-2 -rotate-2 rounded-full border-2 border-ink px-4 py-1.5 font-display text-xs md:text-sm font-extrabold uppercase tracking-[0.2em] shadow-[3px_3px_0_var(--ink)] mt-8 ${categoryColor[project.category]}`}
         >
           {folder?.number} &middot; {categoryLabel[project.category]}
         </motion.div>
@@ -70,7 +70,7 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
           whileInView="show"
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-display uppercase leading-[0.9] mt-6 text-[16vw] sm:text-[12vw] md:text-[8vw]"
+          className="type-hero mt-6"
         >
           {project.title}
         </motion.h1>
@@ -132,7 +132,7 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
             whileInView="show"
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6 }}
-            className="text-lg md:text-xl text-ink/80"
+            className="type-body text-ink/80"
           >
             {project.brief}
           </motion.p>
@@ -310,14 +310,14 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
 
         {/* next project navigation */}
         <div className="mt-24 pt-10 border-t-2 border-ink/10">
-          <span className="font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] text-ink/50">
+          <span className="font-display font-normal text-xs md:text-sm uppercase tracking-[0.2em] text-ink/50">
             Next project
           </span>
           <Link
             href={`/projects/${nextProject.slug}`}
             className="group mt-3 flex items-center justify-between gap-4"
           >
-            <h3 className="font-display uppercase leading-none text-[12vw] sm:text-[9vw] md:text-[5.5vw] group-hover:text-red transition-colors">
+            <h3 className="type-section leading-none group-hover:text-red transition-colors">
               {nextProject.title}
             </h3>
             <span className="text-3xl md:text-5xl flex-shrink-0 transition-transform group-hover:translate-x-2">

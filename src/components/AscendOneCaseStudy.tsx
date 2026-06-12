@@ -32,7 +32,7 @@ export default function AscendOneCaseStudy() {
       <div className="relative max-w-6xl mx-auto">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 font-body font-bold text-sm uppercase tracking-widest border-b-2 border-paper/40 pb-0.5 hover:border-paper transition-colors"
+          className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-b-2 border-paper/40 pb-0.5 hover:border-paper transition-colors"
         >
           &larr; All projects
         </Link>
@@ -44,7 +44,7 @@ export default function AscendOneCaseStudy() {
           whileInView="show"
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 -rotate-2 rounded-full border-2 border-paper bg-blue px-4 py-1.5 font-body text-xs md:text-sm font-extrabold uppercase tracking-[0.2em] shadow-[3px_3px_0_var(--red)] mt-8"
+          className="inline-flex items-center gap-2 -rotate-2 rounded-full border-2 border-paper bg-blue px-4 py-1.5 font-display text-xs md:text-sm font-extrabold uppercase tracking-[0.2em] shadow-[3px_3px_0_var(--red)] mt-8"
         >
           ★ Case File &middot; Folder 01
         </motion.div>
@@ -56,7 +56,7 @@ export default function AscendOneCaseStudy() {
           whileInView="show"
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-display uppercase leading-[0.9] mt-6 text-[16vw] sm:text-[12vw] md:text-[8vw]"
+          className="type-hero mt-6"
         >
           {ascendOne.title}
         </motion.h1>
@@ -281,14 +281,14 @@ export default function AscendOneCaseStudy() {
 
         {/* next project navigation */}
         <div className="mt-24 pt-10 border-t-2 border-paper/15">
-          <span className="font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] text-paper/50">
+          <span className="font-display font-normal text-xs md:text-sm uppercase tracking-[0.2em] text-paper/50">
             Next project
           </span>
           <Link
             href={`/projects/${nextProject.slug}`}
             className="group mt-3 flex items-center justify-between gap-4"
           >
-            <h3 className="font-display uppercase leading-none text-[12vw] sm:text-[9vw] md:text-[5.5vw] group-hover:text-yellow transition-colors">
+            <h3 className="type-section leading-none group-hover:text-yellow transition-colors">
               {nextProject.title}
             </h3>
             <span className="text-3xl md:text-5xl flex-shrink-0 transition-transform group-hover:translate-x-2">

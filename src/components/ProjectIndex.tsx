@@ -75,7 +75,7 @@ export default function ProjectIndex({
           transition={{ duration: 0.6 }}
           className="mb-8 md:mb-10 px-5 md:px-10"
         >
-          <span className="inline-block font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] bg-paper border-2 border-ink rounded-full px-4 py-1.5 -rotate-1 shadow-[2px_2px_0_var(--ink)]">
+          <span className="inline-block font-display font-normal text-xs md:text-sm uppercase tracking-[0.2em] bg-paper border-2 border-ink rounded-full px-4 py-1.5 -rotate-1 shadow-[2px_2px_0_var(--ink)]">
             Project index
           </span>
         </motion.div>
@@ -106,7 +106,7 @@ export default function ProjectIndex({
                 {/* giant title strip: air on top, glyphs crossing the bottom rule */}
                 <div className="relative z-10 h-full flex items-end px-4 md:px-10 pointer-events-none">
                   <span
-                    className={`self-center mr-3 md:mr-6 font-body font-bold text-[10px] md:text-sm tabular-nums flex-shrink-0 transition-opacity duration-300 ${
+                    className={`self-center mr-3 md:mr-6 font-display font-normal text-[10px] md:text-sm tabular-nums flex-shrink-0 transition-opacity duration-300 ${
                       isActive ? "opacity-80" : "opacity-40"
                     }`}
                   >
@@ -122,7 +122,7 @@ export default function ProjectIndex({
                       {project.title}
                     </h3>
                     <span
-                      className={`hidden sm:inline-flex font-body font-extrabold text-[11px] md:text-xs uppercase tracking-[0.2em] border-2 rounded-full px-3.5 py-1.5 whitespace-nowrap transition-colors duration-500 ${
+                      className={`hidden sm:inline-flex font-display font-normal text-[11px] md:text-xs uppercase tracking-[0.2em] border-2 rounded-full px-3.5 py-1.5 whitespace-nowrap transition-colors duration-500 ${
                         isActive
                           ? activePillStyle[project.category]
                           : "border-ink/60 text-ink/70"
@@ -137,7 +137,7 @@ export default function ProjectIndex({
                 <motion.span
                   animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 8 }}
                   transition={{ duration: 0.4, ease }}
-                  className={`sm:hidden absolute top-3 left-4 inline-flex font-body font-extrabold text-[10px] uppercase tracking-[0.2em] border-2 rounded-full px-3 py-1 whitespace-nowrap ${activePillStyle[project.category]}`}
+                  className={`sm:hidden absolute top-3 left-4 inline-flex font-display font-normal text-[10px] uppercase tracking-[0.2em] border-2 rounded-full px-3 py-1 whitespace-nowrap ${activePillStyle[project.category]}`}
                 >
                   {item.pill}
                 </motion.span>

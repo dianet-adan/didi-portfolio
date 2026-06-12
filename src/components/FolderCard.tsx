@@ -65,7 +65,7 @@ export default function FolderCard({
           </div>
 
           {/* hover label */}
-          <span className="pointer-events-none absolute top-[16%] right-[8%] rounded-full border-2 border-ink bg-paper px-3 py-1.5 font-body text-[11px] font-bold uppercase tracking-widest text-ink shadow-[2px_2px_0_var(--ink)] opacity-0 -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+          <span className="pointer-events-none absolute top-[16%] right-[8%] rounded-full border-2 border-ink bg-paper px-3 py-1.5 font-display text-[11px] font-bold uppercase tracking-widest text-ink shadow-[2px_2px_0_var(--ink)] opacity-0 -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
             Open folder
           </span>
         </motion.div>

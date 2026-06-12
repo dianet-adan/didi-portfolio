@@ -57,25 +57,25 @@ export default function AboutSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="lg:col-span-7 order-1 lg:order-2"
         >
-          <span className="inline-block font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] bg-cream border-2 border-ink rounded-full px-4 py-1.5 -rotate-2 shadow-[2px_2px_0_var(--ink)]">
+          <span className="inline-block font-display font-normal text-xs md:text-sm uppercase tracking-[0.2em] bg-cream border-2 border-ink rounded-full px-4 py-1.5 -rotate-2 shadow-[2px_2px_0_var(--ink)]">
             About me
           </span>
 
-          <h2 className="font-display uppercase leading-[0.92] text-[14vw] sm:text-[9vw] md:text-[5.5vw] mt-6">
+          <h2 className="type-section mt-6">
             Hi, I&apos;m{" "}
             <span className="font-serif-italic text-red normal-case">
               Dianet
             </span>
           </h2>
 
-          <p className="mt-6 text-lg md:text-xl text-ink/80 max-w-2xl">
+          <p className="mt-6 type-body text-ink/80">
             I&apos;m a Product Designer with a strong visual direction
             background. I design digital products, interfaces and
             brand-led experiences that bring clarity, structure and
             personality to complex ideas.
           </p>
 
-          <p className="mt-4 text-lg md:text-xl text-ink/80 max-w-2xl">
+          <p className="mt-4 type-body text-ink/80">
             My work sits at the intersection of UX/UI, visual systems, art
             direction and brand identity — across SaaS platforms, mobile
             apps, brand systems and digital campaigns. I care most about
@@ -111,7 +111,7 @@ export default function AboutSection() {
         transition={{ duration: 0.6 }}
         className="relative max-w-6xl mx-auto mt-20 md:mt-28"
       >
-        <span className="inline-block font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] bg-cream border-2 border-ink rounded-full px-4 py-1.5 rotate-1 shadow-[2px_2px_0_var(--ink)] mb-8">
+        <span className="inline-block font-display font-normal text-xs md:text-sm uppercase tracking-[0.2em] bg-cream border-2 border-ink rounded-full px-4 py-1.5 rotate-1 shadow-[2px_2px_0_var(--ink)] mb-8">
           Selected experience
         </span>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

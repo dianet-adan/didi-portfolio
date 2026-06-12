@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anton, Darker_Grotesque, Instrument_Serif } from "next/font/google";
+import { Anton, Quicksand, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 const anton = Anton({
@@ -8,10 +8,10 @@ const anton = Anton({
   weight: "400",
 });
 
-const darkerGrotesque = Darker_Grotesque({
+const quicksand = Quicksand({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const instrumentSerif = Instrument_Serif({
@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${anton.variable} ${darkerGrotesque.variable} ${instrumentSerif.variable}`}
+      className={`${anton.variable} ${quicksand.variable} ${instrumentSerif.variable}`}
     >
       <body className="bg-cream text-ink antialiased">{children}</body>
     </html>

@@ -32,7 +32,7 @@ export default function SiteHeader() {
           <Link
             key={link.href}
             href={link.href}
-            className="font-body font-semibold text-sm uppercase tracking-wide bg-paper/90 backdrop-blur border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--ink)] transition-transform"
+            className="font-display font-normal text-sm uppercase tracking-wide bg-paper/90 backdrop-blur border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--ink)] transition-transform"
             style={{ transform: `rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)` }}
           >
             {link.label}
@@ -41,7 +41,7 @@ export default function SiteHeader() {
         <a
           href="/cv/dianet-adan-cv.pdf"
           download
-          className="font-body font-semibold text-sm uppercase tracking-wide bg-yellow text-ink border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--ink)] transition-transform rotate-1"
+          className="font-display font-normal text-sm uppercase tracking-wide bg-yellow text-ink border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--ink)] transition-transform rotate-1"
         >
           Download CV
         </a>
@@ -52,7 +52,7 @@ export default function SiteHeader() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label="Toggle menu"
-        className="md:hidden relative z-10 font-body font-semibold text-sm uppercase tracking-wide bg-red text-paper border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] rotate-1"
+        className="md:hidden relative z-10 font-display font-normal text-sm uppercase tracking-wide bg-red text-paper border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] rotate-1"
       >
         {open ? "Close" : "Menu"}
       </button>
@@ -80,7 +80,7 @@ export default function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="font-body font-semibold text-sm uppercase tracking-wide bg-paper border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)]"
+                className="font-display font-normal text-sm uppercase tracking-wide bg-paper border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)]"
                 style={{ transform: `rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)` }}
               >
                 {link.label}
@@ -90,7 +90,7 @@ export default function SiteHeader() {
               href="/cv/dianet-adan-cv.pdf"
               download
               onClick={() => setOpen(false)}
-              className="font-body font-semibold text-sm uppercase tracking-wide bg-yellow text-ink border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] rotate-1"
+              className="font-display font-normal text-sm uppercase tracking-wide bg-yellow text-ink border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] rotate-1"
             >
               Download CV
             </a>
