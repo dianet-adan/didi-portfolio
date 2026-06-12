@@ -49,7 +49,7 @@ export default function ProjectIndex({
 
   return (
     <section
-      className={`relative bg-paper grid-paper overflow-hidden ${
+      className={`relative bg-cream grid-paper overflow-hidden ${
         showHeading ? "py-24 md:py-32" : "pt-10 md:pt-14 pb-24 md:pb-32"
       }`}
     >
@@ -61,7 +61,7 @@ export default function ProjectIndex({
           transition={{ duration: 0.7 }}
           className="max-w-3xl mb-12 md:mb-16 px-5 md:px-10"
         >
-          <span className="inline-block font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] bg-cream border-2 border-ink rounded-full px-4 py-1.5 -rotate-1 shadow-[2px_2px_0_var(--ink)] mb-6">
+          <span className="inline-block font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] bg-paper border-2 border-ink rounded-full px-4 py-1.5 -rotate-1 shadow-[2px_2px_0_var(--ink)] mb-6">
             Project index
           </span>
           <h2 className="font-display text-5xl md:text-7xl leading-[0.95] uppercase">
