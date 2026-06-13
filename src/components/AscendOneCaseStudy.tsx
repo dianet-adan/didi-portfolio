@@ -3,7 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ascendOne, projects } from "@/lib/projects";
+import { useEffect, useState } from "react";
+import { ascendOne, projects, Project } from "@/lib/projects";
+import { useTransitionNav, useTransitionArrival } from "./TransitionProvider";
+
+const transitionColor: Record<Project["category"], string> = {
+  uxui: "var(--yellow)",
+  branding: "var(--red)",
+  advertising: "var(--blue)",
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -14,10 +22,36 @@ export default function AscendOneCaseStudy() {
   const project = projects.find((p) => p.slug === "ascendone")!;
   const index = projects.findIndex((p) => p.slug === "ascendone");
   const nextProject = projects[(index + 1) % projects.length];
+  const transitionNav = useTransitionNav();
+  const arrivedViaTransition = useTransitionArrival()();
+
+  const [revealed, setRevealed] = useState(!arrivedViaTransition);
+  useEffect(() => {
+    if (!arrivedViaTransition) return;
+    const id = setTimeout(() => setRevealed(true), 720);
+    return () => clearTimeout(id);
+  }, [arrivedViaTransition]);
+
+  const heroAnim = (delay: number) =>
+    arrivedViaTransition
+      ? {
+          variants: fadeUp,
+          initial: "hidden" as const,
+          animate: (revealed ? "show" : "hidden") as const,
+          transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as const },
+        }
+      : {
+          variants: fadeUp,
+          initial: "hidden" as const,
+          whileInView: "show" as const,
+          viewport: { once: true, amount: 0.5 },
+          transition: { duration: 0.6, delay },
+        };
 
   return (
-    <section className="relative bg-blue text-paper px-5 md:px-10 pt-32 pb-24 md:pb-32 overflow-hidden">
-      <div className="grid-paper-dark absolute inset-0 opacity-40 pointer-events-none" />
+    <section className="relative grid-paper-dark text-ink px-5 md:px-10 pt-32 pb-24 md:pb-32 overflow-hidden"
+      style={{ backgroundColor: "var(--yellow)" }}>
+      
 
       {/* ambient glow from AscendONE cover */}
       <div className="absolute inset-0 opacity-[0.12] mix-blend-soft-light pointer-events-none">
@@ -32,19 +66,15 @@ export default function AscendOneCaseStudy() {
       <div className="relative max-w-6xl mx-auto">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-b-2 border-paper/40 pb-0.5 hover:border-paper transition-colors"
+          className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-b-2 border-ink/40 pb-0.5 hover:border-ink transition-colors"
         >
           &larr; All projects
         </Link>
 
         {/* project hero */}
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 -rotate-2 rounded-full border-2 border-paper bg-blue px-4 py-1.5 font-display text-xs md:text-sm font-extrabold uppercase tracking-[0.2em] shadow-[3px_3px_0_var(--red)] mt-8"
+          {...heroAnim(0.05)}
+          className="inline-flex items-center gap-2 -rotate-2 rounded-full border-2 border-ink bg-paper text-ink px-4 py-1.5 font-display text-xs md:text-sm font-extrabold uppercase tracking-[0.2em] shadow-[3px_3px_0_var(--ink)] mt-8"
         >
           ★ Case File &middot; Folder 01
         </motion.div>
@@ -52,60 +82,48 @@ export default function AscendOneCaseStudy() {
         {/* title */}
         <motion.h1
           variants={fadeUp}
-          initial="hidden"
+          initial={arrivedViaTransition ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
+          transition={
+            arrivedViaTransition
+              ? { duration: 0 }
+              : { duration: 0.7, delay: 0.1 }
+          }
           className="type-hero mt-6"
         >
           {ascendOne.title}
         </motion.h1>
 
         <motion.p
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="font-serif-italic text-2xl md:text-4xl text-yellow mt-2"
+          {...heroAnim(0.12)}
+          className="font-serif-italic text-2xl md:text-4xl text-red mt-2"
         >
           {ascendOne.type}
         </motion.p>
 
         {/* role */}
         <motion.p
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="mt-3 text-sm md:text-base font-bold uppercase tracking-wide text-paper/70 max-w-2xl"
+          {...heroAnim(0.18)}
+          className="mt-3 text-sm md:text-base font-bold uppercase tracking-wide text-ink/70 max-w-2xl"
         >
           {ascendOne.role}
         </motion.p>
 
         {/* collaboration */}
         <motion.p
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-2 text-sm md:text-base italic text-paper/60 max-w-2xl font-serif-italic"
+          {...heroAnim(0.22)}
+          className="mt-2 text-sm md:text-base italic text-ink/60 max-w-2xl font-serif-italic"
         >
           {ascendOne.collaboration}
         </motion.p>
 
         {/* cover image */}
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
+          {...heroAnim(0.28)}
           className="relative w-full aspect-[16/10] mt-12 -rotate-1 shadow-[10px_14px_0_rgba(0,0,0,0.3)]"
         >
-          <div className="relative w-full h-full overflow-hidden rounded-sm border border-paper/10">
+          <div className="relative w-full h-full overflow-hidden rounded-sm border border-ink/10">
             <Image
               src={project.image}
               alt={ascendOne.title}
@@ -126,7 +144,7 @@ export default function AscendOneCaseStudy() {
             {ascendOne.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[11px] md:text-xs font-bold uppercase tracking-wide border border-paper/30 rounded-full px-3 py-1.5 text-paper/80"
+                className="text-[11px] md:text-xs font-bold uppercase tracking-wide border border-ink/30 rounded-full px-3 py-1.5 text-ink/80"
               >
                 {tag}
               </span>
@@ -194,7 +212,7 @@ export default function AscendOneCaseStudy() {
           <h2 className="font-display text-2xl md:text-3xl uppercase mb-3">
             Design Solution
           </h2>
-          <p className="text-lg md:text-xl text-paper/80">{ascendOne.proposal}</p>
+          <p className="text-lg md:text-xl text-ink/80">{ascendOne.proposal}</p>
         </motion.div>
 
         <motion.div
@@ -212,7 +230,7 @@ export default function AscendOneCaseStudy() {
             {ascendOne.features.map((feature) => (
               <div
                 key={feature.title}
-                className="bg-blue-deep border border-paper/20 rounded-sm p-5 hover:border-yellow transition-colors"
+                className="bg-blue-deep border border-paper/20 rounded-sm p-5 hover:border-ink transition-colors"
               >
                 <h4 className="font-display text-lg md:text-xl uppercase text-yellow">
                   {feature.title}
@@ -241,7 +259,7 @@ export default function AscendOneCaseStudy() {
             {(project.gallery ?? []).map((src) => (
               <div
                 key={src}
-                className="relative w-full aspect-[4/3] rounded-sm overflow-hidden border border-paper/20 bg-blue-deep"
+                className="relative w-full aspect-[4/3] rounded-sm overflow-hidden border border-ink/20 bg-paper"
               >
                 <Image
                   src={src}
@@ -269,7 +287,7 @@ export default function AscendOneCaseStudy() {
                 whileInView="show"
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-yellow text-ink rounded-sm border-2 border-ink p-5 shadow-[5px_6px_0_rgba(0,0,0,0.2)]"
+                className="bg-paper text-ink rounded-sm border-2 border-ink p-5 shadow-[5px_6px_0_rgba(0,0,0,0.2)]"
                 style={{ transform: `rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)` }}
               >
                 <h4 className="font-display text-xl uppercase">{point.title}</h4>
@@ -280,15 +298,22 @@ export default function AscendOneCaseStudy() {
         </div>
 
         {/* next project navigation */}
-        <div className="mt-24 pt-10 border-t-2 border-paper/15">
-          <span className="font-display font-normal text-xs md:text-sm uppercase tracking-[0.2em] text-paper/50">
+        <div className="mt-24 pt-10 border-t-2 border-ink/15">
+          <span className="font-display font-normal text-xs md:text-sm uppercase tracking-[0.2em] text-ink/50">
             Next project
           </span>
           <Link
             href={`/projects/${nextProject.slug}`}
+            onClick={(e) => {
+              e.preventDefault();
+              transitionNav(
+                `/projects/${nextProject.slug}`,
+                transitionColor[nextProject.category]
+              );
+            }}
             className="group mt-3 flex items-center justify-between gap-4"
           >
-            <h3 className="type-section leading-none group-hover:text-yellow transition-colors">
+            <h3 className="type-section leading-none group-hover:text-red transition-colors">
               {nextProject.title}
             </h3>
             <span className="text-3xl md:text-5xl flex-shrink-0 transition-transform group-hover:translate-x-2">

@@ -62,8 +62,12 @@ export default function ProjectIndex({
     : indexItems;
 
   // On touch devices the first tap opens the row, the second tap navigates.
-  // Navigation runs through the color-sweep transition.
-  function handleClick(e: MouseEvent, slug: string, category: Project["category"]) {
+  // Navigation expands the clicked row's color plane to fill the screen.
+  function handleClick(
+    e: MouseEvent,
+    slug: string,
+    category: Project["category"]
+  ) {
     e.preventDefault();
     if (window.matchMedia("(hover: none)").matches && active !== slug) {
       setActive(slug);
@@ -106,7 +110,9 @@ export default function ProjectIndex({
                 href={`/projects/${project.slug}`}
                 onMouseEnter={() => setActive(item.slug)}
                 onMouseLeave={() => setActive(null)}
-                onClick={(e) => handleClick(e, item.slug, project.category)}
+                onClick={(e) =>
+                  handleClick(e, item.slug, project.category)
+                }
                 aria-label={`${project.title} — ${item.pill}`}
                 className={`relative block w-full overflow-hidden border-b-2 border-ink transition-[height,background-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                   isActive

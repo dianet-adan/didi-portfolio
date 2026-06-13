@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
@@ -12,19 +11,30 @@ import {
   useState,
 } from "react";
 
-type Overlay = { color: string } | null;
-
 const TransitionContext = createContext<(href: string, color?: string) => void>(
   () => {}
 );
 
-// Navigate with a full-screen color sweep. Falls back to a plain push
-// if a transition is already running.
+const ArrivalContext = createContext<() => boolean>(() => false);
+
 export function useTransitionNav() {
   return useContext(TransitionContext);
 }
 
+// True when the current page was entered through the color wipe — the page
+// title renders in place (single title, no size change) and the rest of the
+// content fades in around it once the wipe has cleared.
+export function useTransitionArrival() {
+  return useContext(ArrivalContext);
+}
+
 const COVER_MS = 600;
+const HOLD_MS = 220;
+const EASE = "cubic-bezier(0.76, 0, 0.24, 1)";
+
+// idle = unmounted · enter = mounted off-screen bottom · cover = full screen ·
+// reveal = wiped off-screen top
+type Phase = "idle" | "enter" | "cover" | "reveal";
 
 export default function TransitionProvider({
   children,
@@ -33,50 +43,86 @@ export default function TransitionProvider({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [overlay, setOverlay] = useState<Overlay>(null);
+  const [phase, setPhase] = useState<Phase>("idle");
+  const [color, setColor] = useState("var(--ink)");
   const pendingRef = useRef(false);
+  const arrivedRef = useRef(false);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const rafRef = useRef(0);
+
+  const clearTimers = () => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  };
 
   const navigate = useCallback(
-    (href: string, color: string = "var(--ink)") => {
+    (href: string, c: string = "var(--ink)") => {
       if (pendingRef.current) return;
       if (href === pathname) return;
       pendingRef.current = true;
-      setOverlay({ color });
-      // push once the screen is almost covered
-      setTimeout(() => router.push(href), COVER_MS - 100);
+      arrivedRef.current = true;
+      setColor(c);
+      // mount off-screen bottom, then (after the browser commits that state)
+      // slide up to cover so the CSS transition actually animates
+      setPhase("enter");
+      timers.current.push(setTimeout(() => setPhase("cover"), 40));
+      timers.current.push(setTimeout(() => router.push(href), COVER_MS - 70));
+      // failsafe
+      timers.current.push(
+        setTimeout(() => {
+          setPhase("idle");
+          pendingRef.current = false;
+          arrivedRef.current = false;
+        }, 4500)
+      );
     },
     [pathname, router]
   );
 
-  // the new route has mounted under the curtain — let it continue upwards
+  // new route mounted under the plane (page bg = plane color, title already in
+  // place): hold briefly, then wipe the plane up to reveal the single title.
   useEffect(() => {
     if (!pendingRef.current) return;
-    const t = setTimeout(() => {
-      setOverlay(null);
-      pendingRef.current = false;
-    }, 300);
-    return () => clearTimeout(t);
+    clearTimers();
+
+    timers.current.push(setTimeout(() => setPhase("reveal"), HOLD_MS));
+    timers.current.push(
+      setTimeout(() => {
+        setPhase("idle");
+        pendingRef.current = false;
+        arrivedRef.current = false;
+      }, HOLD_MS + COVER_MS + 60)
+    );
+
+    return clearTimers;
   }, [pathname]);
+
+  const getArrived = useCallback(() => arrivedRef.current, []);
+
+  const translateY =
+    phase === "cover" ? "0%" : phase === "reveal" ? "-100%" : "100%";
 
   return (
     <TransitionContext.Provider value={navigate}>
-      {children}
-      <AnimatePresence>
-        {overlay && (
-          <motion.div
-            key="page-transition"
-            initial={{ y: "110%" }}
-            animate={{ y: "0%" }}
-            exit={{ y: "-110%" }}
-            transition={{ duration: COVER_MS / 1000, ease: [0.76, 0, 0.24, 1] }}
-            style={{
-              background: overlay.color,
-              borderRadius: "50% / 7vh",
-            }}
-            className="fixed top-[-6vh] left-[-10vw] h-[112vh] w-[120vw] z-[90]"
-          />
-        )}
-      </AnimatePresence>
+      <ArrivalContext.Provider value={getArrived}>
+        {children}
+      </ArrivalContext.Provider>
+
+      {/* color wipe: slides up to cover, then keeps sliding up to reveal the
+          new page (its background is the same color, so only the title and
+          content appear). Plain CSS transition for reliably smooth motion. */}
+      {phase !== "idle" && (
+        <div
+          aria-hidden
+          className="grid-paper-dark fixed inset-0 z-[95]"
+          style={{
+            backgroundColor: color,
+            transform: `translateY(${translateY})`,
+            transition: `transform ${COVER_MS}ms ${EASE}`,
+          }}
+        />
+      )}
     </TransitionContext.Provider>
   );
 }
