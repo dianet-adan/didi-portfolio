@@ -140,7 +140,7 @@ export default function Hero() {
         transition={{ duration: 0.7, delay: 0.6 }}
         className="mt-8 type-body text-ink/80"
       >
-        Hi, I&apos;m Dianet and I design digital products, interfaces and
+        Hi, I&apos;m Dianet &mdash; I design digital products, interfaces and
         brand-led experiences that bring clarity, structure and personality to
         complex ideas.
       </motion.p>
@@ -156,20 +156,14 @@ export default function Hero() {
           href="/projects"
           className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-2 border-ink rounded-full px-5 py-2 bg-red text-paper shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
         >
-          View all projects <span aria-hidden="true">&rarr;</span>
+          View projects <span aria-hidden="true">&rarr;</span>
         </Link>
-        <a
-          href="#archive"
+        <Link
+          href="/about"
           className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-2 border-ink rounded-full px-5 py-2 bg-yellow shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
         >
-          Open the archive
-          <motion.span
-            animate={{ y: [0, 4, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            &darr;
-          </motion.span>
-        </a>
+          About me
+        </Link>
       </motion.div>
 
       {/* floating archive objects */}
