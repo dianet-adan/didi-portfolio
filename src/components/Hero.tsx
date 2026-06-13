@@ -242,7 +242,7 @@ export default function Hero() {
               animate={{ scale: 1, opacity: 1, rotate: -6 }}
               exit={{ scale: 0, opacity: 0 }}
               transition={{ duration: 0.25, ease: "backOut" }}
-              className="-ml-10 -mt-10 flex h-20 w-20 items-center justify-center rounded-full bg-ink text-paper font-display text-xs uppercase tracking-[0.16em] shadow-[3px_3px_0_rgba(42,28,14,0.25)]"
+              className="-ml-7 -mt-7 flex h-14 w-14 items-center justify-center rounded-full bg-ink text-paper font-display text-[10px] uppercase tracking-[0.12em] shadow-[3px_3px_0_rgba(42,28,14,0.25)]"
             >
               Drag me
             </motion.div>
