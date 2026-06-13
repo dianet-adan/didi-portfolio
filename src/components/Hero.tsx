@@ -2,14 +2,88 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useMotionValue } from "framer-motion";
-import { MouseEvent, useRef } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import { MouseEvent, useRef, useState } from "react";
 import RevealLine from "./RevealLine";
 import ParallaxSticker from "./ParallaxSticker";
+
+// hand-made sticker artwork, scattered around the hero
+const stickers = [
+  {
+    src: "/images/stickers/1.png",
+    alt: "Blue flower face sticker",
+    ratio: "791/727",
+    className: "hidden lg:block absolute top-[36%] left-[45%] w-24 lg:w-28 z-10",
+    rotate: -6,
+    depth: 0.8,
+    delay: 0.7,
+    floatDuration: 4.5,
+  },
+  {
+    src: "/images/stickers/2.png",
+    alt: "OK hand sticker",
+    ratio: "791/727",
+    className: "absolute bottom-10 right-[6%] sm:right-[8%] w-20 md:w-24 z-10",
+    rotate: 6,
+    depth: 0.5,
+    delay: 0.85,
+    floatDuration: 6,
+  },
+  {
+    src: "/images/stickers/3.png",
+    alt: "Yellow asterisk sticker",
+    ratio: "791/795",
+    className: "hidden md:block absolute top-[14%] left-[42%] w-16 lg:w-20 z-10",
+    rotate: 8,
+    depth: 1.4,
+    delay: 1.1,
+    floatDuration: 4.2,
+  },
+  {
+    src: "/images/stickers/4.png",
+    alt: "Yellow cloud face sticker",
+    ratio: "960/795",
+    className: "hidden lg:block absolute top-[68%] left-[56%] w-28 z-10",
+    rotate: 4,
+    depth: 0.9,
+    delay: 1.2,
+    floatDuration: 5,
+  },
+  {
+    src: "/images/stickers/5.png",
+    alt: "Red heart sticker",
+    ratio: "960/795",
+    className: "hidden md:block absolute bottom-32 right-[8%] w-24 lg:w-28 z-10",
+    rotate: -5,
+    depth: 1.1,
+    delay: 1,
+    floatDuration: 3.8,
+  },
+  {
+    src: "/images/stickers/6.png",
+    alt: "Gold star sticker",
+    ratio: "797/795",
+    className: "hidden md:block absolute top-[10%] left-[30%] w-16 lg:w-20 z-10",
+    rotate: -10,
+    depth: 1.2,
+    delay: 1.3,
+    floatDuration: 4.6,
+  },
+];
 
 export default function Hero() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const cursorX = useMotionValue(-200);
+  const cursorY = useMotionValue(-200);
+  const cursorSpringX = useSpring(cursorX, { stiffness: 400, damping: 32 });
+  const cursorSpringY = useSpring(cursorY, { stiffness: 400, damping: 32 });
+  const [dragHover, setDragHover] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   function handleMouseMove(e: MouseEvent<HTMLElement>) {
@@ -18,6 +92,8 @@ export default function Hero() {
     const relY = (e.clientY - rect.top) / rect.height - 0.5;
     mouseX.set(relX * 40);
     mouseY.set(relY * 40);
+    cursorX.set(e.clientX - rect.left);
+    cursorY.set(e.clientY - rect.top);
   }
 
   return (
@@ -106,7 +182,11 @@ export default function Hero() {
         floatDuration={5}
         className="hidden md:block absolute top-16 lg:top-20 right-[10%] lg:right-[14%] w-72 lg:w-[26rem] xl:w-[30rem] z-10"
       >
-        <div className="relative w-full aspect-[941/1672]">
+        <div
+          onMouseEnter={() => setDragHover(true)}
+          onMouseLeave={() => setDragHover(false)}
+          className="relative w-full aspect-[941/1672] cursor-none"
+        >
           <Image
             src="/images/base/me-portrait-framed.png"
             alt="Dianet Adán"
@@ -118,65 +198,57 @@ export default function Hero() {
         </div>
       </ParallaxSticker>
 
-      <ParallaxSticker
-        mouseX={mouseX}
-        mouseY={mouseY}
-        dragConstraints={sectionRef}
-        depth={0.8}
-        delay={0.7}
-        floatDuration={4.5}
-        className="hidden lg:block absolute top-[40%] left-[37%] z-10"
-      >
-        <div className="flex h-20 w-20 md:h-24 md:w-24 -rotate-6 items-center justify-center rounded-full border-2 border-ink bg-red text-center font-display font-normal uppercase leading-tight text-paper shadow-[4px_4px_0_var(--ink)] text-sm md:text-base">
-          Good
-          <br />
-          Ideas
-          <br />
-          Matter
-        </div>
-      </ParallaxSticker>
+      {stickers.map((sticker) => (
+        <ParallaxSticker
+          key={sticker.src}
+          mouseX={mouseX}
+          mouseY={mouseY}
+          dragConstraints={sectionRef}
+          depth={sticker.depth}
+          delay={sticker.delay}
+          floatDuration={sticker.floatDuration}
+          className={sticker.className}
+        >
+          <div
+            onMouseEnter={() => setDragHover(true)}
+            onMouseLeave={() => setDragHover(false)}
+            className="relative w-full cursor-none drop-shadow-[3px_4px_0_rgba(42,28,14,0.18)]"
+            style={{
+              aspectRatio: sticker.ratio,
+              rotate: `${sticker.rotate}deg`,
+            }}
+          >
+            <Image
+              src={sticker.src}
+              alt={sticker.alt}
+              fill
+              sizes="140px"
+              className="object-contain select-none"
+              draggable={false}
+            />
+          </div>
+        </ParallaxSticker>
+      ))}
 
-      <ParallaxSticker
-        mouseX={mouseX}
-        mouseY={mouseY}
-        dragConstraints={sectionRef}
-        depth={0.5}
-        delay={0.85}
-        floatDuration={6}
-        className="absolute bottom-10 right-[6%] sm:right-[8%] z-10"
+      {/* "drag me" cursor follower */}
+      <motion.div
+        style={{ x: cursorSpringX, y: cursorSpringY }}
+        className="pointer-events-none absolute top-0 left-0 z-40 hidden md:block"
       >
-        <div className="rotate-3 rounded-full border-2 border-ink bg-yellow px-5 py-3 font-display font-normal uppercase tracking-wide text-ink shadow-[4px_4px_0_var(--ink)] text-sm md:text-base">
-          Make it meaningful
-        </div>
-      </ParallaxSticker>
-
-      <ParallaxSticker
-        mouseX={mouseX}
-        mouseY={mouseY}
-        dragConstraints={sectionRef}
-        depth={1.1}
-        delay={1}
-        floatDuration={3.8}
-        className="hidden md:block absolute bottom-32 right-[8%] z-10"
-      >
-        <div className="-rotate-3 rounded-sm border-2 border-ink bg-blue px-4 py-2 font-display font-normal uppercase tracking-widest text-paper shadow-[3px_3px_0_var(--ink)] text-xs md:text-sm">
-          Projects &rarr; 2026
-        </div>
-      </ParallaxSticker>
-
-      <ParallaxSticker
-        mouseX={mouseX}
-        mouseY={mouseY}
-        dragConstraints={sectionRef}
-        depth={1.4}
-        delay={1.1}
-        floatDuration={4.2}
-        className="hidden md:block absolute top-[14%] left-[42%] z-10"
-      >
-        <span className="block text-5xl text-yellow drop-shadow-[2px_2px_0_var(--ink)]">
-          &#9733;
-        </span>
-      </ParallaxSticker>
+        <AnimatePresence>
+          {dragHover && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0, rotate: -16 }}
+              animate={{ scale: 1, opacity: 1, rotate: -6 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "backOut" }}
+              className="-ml-10 -mt-10 flex h-20 w-20 items-center justify-center rounded-full bg-ink text-paper font-display text-xs uppercase tracking-[0.16em] shadow-[3px_3px_0_rgba(42,28,14,0.25)]"
+            >
+              Drag me
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </section>
   );
 }
