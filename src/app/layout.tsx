@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Anton, Quicksand, Instrument_Serif } from "next/font/google";
+import TransitionProvider from "@/components/TransitionProvider";
 import "./globals.css";
 
 const anton = Anton({
@@ -37,7 +38,9 @@ export default function RootLayout({
       lang="en"
       className={`${anton.variable} ${quicksand.variable} ${instrumentSerif.variable}`}
     >
-      <body className="bg-cream text-ink antialiased">{children}</body>
+      <body className="bg-cream text-ink antialiased">
+        <TransitionProvider>{children}</TransitionProvider>
+      </body>
     </html>
   );
 }

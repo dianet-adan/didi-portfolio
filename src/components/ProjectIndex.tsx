@@ -5,11 +5,18 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { MouseEvent, useState } from "react";
 import { projects, Project } from "@/lib/projects";
+import { useTransitionNav } from "./TransitionProvider";
 
 const activeRowStyle: Record<Project["category"], string> = {
   uxui: "bg-yellow text-ink",
   branding: "bg-red text-paper",
   advertising: "bg-blue text-paper",
+};
+
+const categoryColor: Record<Project["category"], string> = {
+  uxui: "var(--yellow)",
+  branding: "var(--red)",
+  advertising: "var(--blue)",
 };
 
 const activePillStyle: Record<Project["category"], string> = {
@@ -49,16 +56,20 @@ export default function ProjectIndex({
   featured?: boolean;
 }) {
   const [active, setActive] = useState<string | null>(null);
+  const transitionNav = useTransitionNav();
   const items = featured
     ? indexItems.filter((item) => featuredSlugs.includes(item.slug))
     : indexItems;
 
   // On touch devices the first tap opens the row, the second tap navigates.
-  function handleClick(e: MouseEvent, slug: string) {
+  // Navigation runs through the color-sweep transition.
+  function handleClick(e: MouseEvent, slug: string, category: Project["category"]) {
+    e.preventDefault();
     if (window.matchMedia("(hover: none)").matches && active !== slug) {
-      e.preventDefault();
       setActive(slug);
+      return;
     }
+    transitionNav(`/projects/${slug}`, categoryColor[category]);
   }
 
   return (
@@ -95,7 +106,7 @@ export default function ProjectIndex({
                 href={`/projects/${project.slug}`}
                 onMouseEnter={() => setActive(item.slug)}
                 onMouseLeave={() => setActive(null)}
-                onClick={(e) => handleClick(e, item.slug)}
+                onClick={(e) => handleClick(e, item.slug, project.category)}
                 aria-label={`${project.title} — ${item.pill}`}
                 className={`relative block w-full overflow-hidden border-b-2 border-ink transition-[height,background-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                   isActive

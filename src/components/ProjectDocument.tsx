@@ -4,11 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Project } from "@/lib/projects";
+import { useTransitionNav } from "./TransitionProvider";
 
 const categoryLabel: Record<Project["category"], string> = {
   uxui: "UX/UI",
   branding: "Branding",
   advertising: "Advertising",
+};
+
+const categoryTransitionColor: Record<Project["category"], string> = {
+  uxui: "var(--yellow)",
+  branding: "var(--red)",
+  advertising: "var(--blue)",
 };
 
 const categoryColor: Record<Project["category"], string> = {
@@ -24,6 +31,7 @@ export default function ProjectDocument({
   project: Project;
   index: number;
 }) {
+  const transitionNav = useTransitionNav();
   return (
     <motion.div
       initial={{ opacity: 0, y: 60, rotate: 0, scale: 0.92 }}
@@ -94,6 +102,13 @@ export default function ProjectDocument({
         {/* link */}
         <Link
           href={`/projects/${project.slug}`}
+          onClick={(e) => {
+            e.preventDefault();
+            transitionNav(
+              `/projects/${project.slug}`,
+              categoryTransitionColor[project.category]
+            );
+          }}
           className="mt-5 inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm border-b-2 border-ink pb-0.5 hover:gap-3 transition-all"
         >
           View case study <span aria-hidden="true">&rarr;</span>

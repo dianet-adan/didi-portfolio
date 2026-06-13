@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Project, folders, projects } from "@/lib/projects";
+import { useTransitionNav } from "./TransitionProvider";
 
 const categoryLabel: Record<Project["category"], string> = {
   uxui: "UX/UI",
@@ -37,10 +38,17 @@ function OMark({ className }: { className?: string }) {
   );
 }
 
+const transitionColor: Record<Project["category"], string> = {
+  uxui: "var(--yellow)",
+  branding: "var(--red)",
+  advertising: "var(--blue)",
+};
+
 export default function ProjectCaseStudy({ project }: { project: Project }) {
   const folder = folders.find((f) => f.id === project.category);
   const index = projects.findIndex((p) => p.slug === project.slug);
   const nextProject = projects[(index + 1) % projects.length];
+  const transitionNav = useTransitionNav();
 
   return (
     <section className="relative grid-paper px-5 md:px-10 pt-32 pb-24 md:pb-32 overflow-hidden">
@@ -315,6 +323,13 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
           </span>
           <Link
             href={`/projects/${nextProject.slug}`}
+            onClick={(e) => {
+              e.preventDefault();
+              transitionNav(
+                `/projects/${nextProject.slug}`,
+                transitionColor[nextProject.category]
+              );
+            }}
             className="group mt-3 flex items-center justify-between gap-4"
           >
             <h3 className="type-section leading-none group-hover:text-red transition-colors">

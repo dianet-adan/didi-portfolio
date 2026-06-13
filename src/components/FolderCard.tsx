@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { FolderData } from "@/lib/projects";
+import { useTransitionNav } from "./TransitionProvider";
 
 export default function FolderCard({
   folder,
@@ -13,6 +14,7 @@ export default function FolderCard({
   index: number;
 }) {
   const baseRotate = index === 0 ? -2 : index === 1 ? 1.5 : -1;
+  const transitionNav = useTransitionNav();
 
   return (
     <motion.div
@@ -23,6 +25,10 @@ export default function FolderCard({
     >
       <Link
         href={`/projects/${folder.slug}`}
+        onClick={(e) => {
+          e.preventDefault();
+          transitionNav(`/projects/${folder.slug}`, folder.color);
+        }}
         className="group relative block w-full text-left focus:outline-none pt-6 cursor-pointer"
       >
         {/* the whole folder moves as one object */}
