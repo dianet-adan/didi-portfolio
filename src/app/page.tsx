@@ -4,7 +4,6 @@ import Hero from "@/components/Hero";
 import ArchiveSection from "@/components/ArchiveSection";
 import ProjectIndex from "@/components/ProjectIndex";
 import ContactTeaser from "@/components/ContactTeaser";
-import SiteFooter from "@/components/SiteFooter";
 
 export default function Home() {
   return (
@@ -17,7 +16,6 @@ export default function Home() {
         <ProjectIndex />
         <ContactTeaser />
       </main>
-      <SiteFooter />
     </>
   );
 }

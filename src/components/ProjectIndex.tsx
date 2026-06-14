@@ -51,9 +51,11 @@ const ease = [0.32, 0.72, 0, 1] as const;
 export default function ProjectIndex({
   showHeading = true,
   featured = false,
+  bare = false,
 }: {
   showHeading?: boolean;
   featured?: boolean;
+  bare?: boolean;
 }) {
   const [active, setActive] = useState<string | null>(null);
   const transitionNav = useTransitionNav();
@@ -78,7 +80,7 @@ export default function ProjectIndex({
 
   return (
     <section
-      className={`relative bg-cream grid-paper overflow-hidden ${
+      className={`relative overflow-hidden ${bare ? "" : "bg-cream grid-paper"} ${
         showHeading ? "pt-4 md:pt-6 pb-24 md:pb-32" : "pt-10 md:pt-14 pb-24 md:pb-32"
       }`}
     >

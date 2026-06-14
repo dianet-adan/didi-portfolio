@@ -166,21 +166,16 @@ export default function Hero() {
         </Link>
       </motion.div>
 
-      {/* floating archive objects */}
+      {/* floating portrait — parallax + float only, not draggable */}
       <ParallaxSticker
         mouseX={mouseX}
         mouseY={mouseY}
-        dragConstraints={sectionRef}
         depth={-0.6}
         delay={0.5}
         floatDuration={5}
         className="hidden md:block absolute top-16 lg:top-20 right-[10%] lg:right-[14%] w-72 lg:w-[26rem] xl:w-[30rem] z-10"
       >
-        <div
-          onMouseEnter={() => setDragHover(true)}
-          onMouseLeave={() => setDragHover(false)}
-          className="relative w-full aspect-[941/1672] cursor-none"
-        >
+        <div className="relative w-full aspect-[941/1672]">
           <Image
             src="/images/base/me-portrait-framed.png"
             alt="Dianet Adán"

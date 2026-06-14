@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import SiteFooter from "./SiteFooter";
 
 function SoundArcs({ flip = false }: { flip?: boolean }) {
   return (
@@ -29,21 +30,25 @@ function SoundArcs({ flip = false }: { flip?: boolean }) {
   );
 }
 
-export default function EndCTA() {
+export default function EndCTA({ fullHeight = false }: { fullHeight?: boolean }) {
   const [ringing, setRinging] = useState(false);
   return (
     <section
       id="contact"
-      className="relative grid-paper-dark bg-blue text-paper px-5 md:px-10 py-20 md:py-16 md:min-h-screen flex flex-col overflow-hidden"
+      className={`relative grid-paper-dark bg-blue text-paper px-5 md:px-10 flex flex-col overflow-hidden ${
+        fullHeight
+          ? "min-h-screen pt-28 pb-12 md:pt-24 md:pb-16"
+          : "py-16 md:py-20"
+      }`}
     >
-      <div className="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-10 items-center w-full flex-1 md:py-10">
-        {/* phone receiver */}
+      <div className="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.15fr] gap-10 md:gap-8 items-center w-full flex-1">
+        {/* phone receiver — nudged left and down */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85, rotate: -14 }}
           whileInView={{ opacity: 1, scale: 1, rotate: -8 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "backOut" }}
-          className="order-2 md:order-1 mx-auto md:mx-0 w-40 sm:w-56 md:w-full max-w-sm"
+          className="order-2 md:order-1 mx-auto md:mx-0 w-64 sm:w-80 md:w-full max-w-none md:mt-14 md:-ml-12"
         >
           <motion.a
             href="mailto:hello@dianetadan.com"
@@ -141,7 +146,7 @@ export default function EndCTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="type-section text-yellow"
+            className="font-display uppercase leading-[0.9] text-yellow text-[15vw] sm:text-[11vw] md:text-[7.2vw] whitespace-nowrap"
           >
             Let&apos;s
             <br />
@@ -181,10 +186,7 @@ export default function EndCTA() {
         </div>
       </div>
 
-      <footer className="relative w-full flex flex-col sm:flex-row items-center justify-between gap-2 max-w-6xl mx-auto mt-12 md:mt-6 pt-6 border-t-2 border-paper/15 text-xs md:text-sm font-bold uppercase tracking-widest text-paper/60">
-        <span>Dianet Ad&aacute;n &mdash; Product Designer &amp; Visual Systems Thinker</span>
-        <span>Designed &amp; built as an interactive prototype</span>
-      </footer>
+      <SiteFooter />
     </section>
   );
 }

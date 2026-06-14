@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
@@ -8,6 +9,7 @@ const links = [
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
+  { label: "Play Zone ✦", href: "/play-zone" },
 ];
 
 export default function SiteHeader() {
@@ -22,9 +24,17 @@ export default function SiteHeader() {
     >
       <Link
         href="/"
-        className="font-display text-lg md:text-xl tracking-wide bg-paper/90 backdrop-blur border-2 border-ink rounded-full px-4 py-1.5 shadow-[3px_3px_0_var(--ink)] -rotate-1"
+        aria-label="Dianet Adán — home"
+        className="bg-paper/90 backdrop-blur border-2 border-ink rounded-full px-4 py-2 shadow-[3px_3px_0_var(--ink)] -rotate-1 hover:-translate-y-0.5 transition-transform"
       >
-        DIDI
+        <Image
+          src="/images/base/logo-didi.png"
+          alt="DIDI"
+          width={677}
+          height={412}
+          priority
+          className="h-5 md:h-6 w-auto"
+        />
       </Link>
 
       <nav className="hidden md:flex items-center gap-3">

@@ -2,10 +2,9 @@ import { notFound } from "next/navigation";
 import { projects, folders } from "@/lib/projects";
 import GrainOverlay from "@/components/GrainOverlay";
 import SiteHeader from "@/components/SiteHeader";
-import SiteFooter from "@/components/SiteFooter";
+import ContactTeaser from "@/components/ContactTeaser";
 import EndCTA from "@/components/EndCTA";
-import AscendOneCaseStudy from "@/components/AscendOneCaseStudy";
-import ProjectCaseStudy from "@/components/ProjectCaseStudy";
+import ImageCaseStudy from "@/components/ImageCaseStudy";
 import CategoryPage from "@/components/CategoryPage";
 
 export function generateStaticParams() {
@@ -30,8 +29,8 @@ export default async function ProjectsSlugPage({
         <SiteHeader />
         <main>
           <CategoryPage folder={folder} />
+          <ContactTeaser />
         </main>
-        <SiteFooter />
       </>
     );
   }
@@ -46,11 +45,7 @@ export default async function ProjectsSlugPage({
       <GrainOverlay />
       <SiteHeader />
       <main>
-        {project.slug === "ascendone" ? (
-          <AscendOneCaseStudy />
-        ) : (
-          <ProjectCaseStudy project={project} />
-        )}
+        <ImageCaseStudy project={project} />
         <EndCTA />
       </main>
     </>

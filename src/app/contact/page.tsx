@@ -7,8 +7,8 @@ export default function ContactPage() {
     <>
       <GrainOverlay />
       <SiteHeader />
-      <main className="pt-20">
-        <EndCTA />
+      <main>
+        <EndCTA fullHeight />
       </main>
     </>
   );

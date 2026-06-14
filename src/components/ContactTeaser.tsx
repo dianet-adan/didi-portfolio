@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import SiteFooter from "./SiteFooter";
 
 export default function ContactTeaser() {
   return (
-    <section className="relative grid-paper-dark bg-blue text-paper px-5 md:px-10 py-20 md:py-28 overflow-hidden">
-      <div className="relative max-w-6xl mx-auto text-center">
+    <section className="relative grid-paper-dark bg-blue text-paper px-5 md:px-10 py-16 md:py-20 overflow-hidden flex flex-col">
+      <div className="relative max-w-6xl mx-auto text-center w-full">
         <motion.p
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,6 +50,8 @@ export default function ContactTeaser() {
           </a>
         </motion.div>
       </div>
+
+      <SiteFooter />
     </section>
   );
 }
