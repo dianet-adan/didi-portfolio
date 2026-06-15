@@ -72,7 +72,12 @@ export default function PlayZonePage() {
       <main className="relative min-h-screen bg-blue grid-paper-dark text-paper overflow-hidden">
         <div className="relative max-w-[1640px] mx-auto px-5 md:px-12 pt-24 md:pt-28 pb-10 grid grid-cols-1 lg:grid-cols-[1fr_1.12fr] gap-10 lg:gap-16 items-center lg:min-h-[calc(100vh-1rem)]">
           {/* left: intro copy + notes */}
-          <div className="relative order-2 lg:order-1">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="relative order-2 lg:order-1"
+          >
             <div className="relative z-10 w-72 md:w-[26rem] -rotate-2 -mb-4 md:-mb-7">
               <Image
                 src="/images/play-zone/welcome.png"
@@ -163,10 +168,15 @@ export default function PlayZonePage() {
                 <Image src="/images/stickers/5.png" alt="" width={120} height={120} className="w-full h-auto" />
               </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* right: game screen */}
-          <div className="relative order-1 lg:order-2">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.12, ease: "easeOut" }}
+            className="relative order-1 lg:order-2"
+          >
             <PlayZoneGame
               key={runId}
               playing={status === "playing"}
@@ -250,7 +260,7 @@ export default function PlayZonePage() {
                 className="w-full h-auto"
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </main>
     </>

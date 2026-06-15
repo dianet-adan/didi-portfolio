@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { useTransitionNav } from "./TransitionProvider";
 
 const links = [
   { label: "Projects", href: "/projects" },
@@ -13,13 +12,11 @@ const links = [
   { label: "Play Zone ✦", href: "/play-zone" },
 ];
 
-// the Play Zone lives on a deep-blue background, so it enters through the same
-// color wipe the project pages use instead of popping in abruptly
+// the Play Zone link is accented red but navigates like every other page
 const PLAY_ZONE = "/play-zone";
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const transitionNav = useTransitionNav();
 
   return (
     <motion.header
@@ -50,14 +47,6 @@ export default function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              onClick={
-                isPlayZone
-                  ? (e) => {
-                      e.preventDefault();
-                      transitionNav(PLAY_ZONE, "var(--blue)");
-                    }
-                  : undefined
-              }
               className={`font-display font-normal text-sm uppercase tracking-wide backdrop-blur border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--ink)] transition-transform ${
                 isPlayZone ? "bg-red text-paper" : "bg-paper/90"
               }`}
@@ -108,15 +97,7 @@ export default function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={
-                  link.href === PLAY_ZONE
-                    ? (e) => {
-                        e.preventDefault();
-                        setOpen(false);
-                        transitionNav(PLAY_ZONE, "var(--blue)");
-                      }
-                    : () => setOpen(false)
-                }
+                onClick={() => setOpen(false)}
                 className={`font-display font-normal text-sm uppercase tracking-wide border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] ${
                   link.href === PLAY_ZONE ? "bg-red text-paper" : "bg-paper"
                 }`}
