@@ -27,10 +27,12 @@ export default function PlayZoneGame({
   playing,
   highScore,
   onEnd,
+  onStart,
 }: {
   playing: boolean;
   highScore: number;
   onEnd: (score: number, won: boolean) => void;
+  onStart: () => void;
 }) {
   const [frame, setFrame] = useState<Frame>({
     py: 0,
@@ -59,17 +61,18 @@ export default function PlayZoneGame({
     }
   }, []);
 
-  // input: space / click / tap
+  // input: space / arrow-up — start the game if idle, otherwise jump
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.code === "Space" || e.code === "ArrowUp") {
         e.preventDefault();
         if (playing) jump();
+        else onStart();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [playing, jump]);
+  }, [playing, jump, onStart]);
 
   // game loop
   useEffect(() => {
@@ -203,7 +206,7 @@ export default function PlayZoneGame({
 
   return (
     <div
-      onClick={() => playing && jump()}
+      onClick={() => (playing ? jump() : onStart())}
       className="relative w-full aspect-[4/3] rounded-[2rem] border-[6px] border-ink overflow-hidden shadow-[10px_12px_0_rgba(0,0,0,0.3)] select-none cursor-pointer"
       style={{
         backgroundImage: "url(/images/play-zone/bg.png)",
@@ -214,21 +217,21 @@ export default function PlayZoneGame({
       aria-label="Play Zone runner game"
     >
       {/* score labels */}
-      <div className="absolute top-[5%] left-[5%] w-[26%]">
+      <div className="absolute top-[5%] left-[5%] w-[18%]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/play-zone/score.png" alt="Score" className="w-full" />
-        <p className="font-display text-yellow text-[5cqw] leading-none mt-1 tabular-nums">
+        <p className="font-display text-yellow text-[4cqw] leading-none mt-1 tabular-nums">
           {String(displayScore).padStart(5, "0")}
         </p>
       </div>
-      <div className="absolute top-[5%] right-[5%] w-[28%] text-right">
+      <div className="absolute top-[5%] right-[5%] w-[22%] text-right">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/play-zone/high-score.png"
           alt="High score"
           className="w-full"
         />
-        <p className="font-display text-yellow text-[5cqw] leading-none mt-1 tabular-nums">
+        <p className="font-display text-yellow text-[4cqw] leading-none mt-1 tabular-nums">
           {String(Math.max(highScore, displayScore)).padStart(5, "0")}
         </p>
       </div>
@@ -241,7 +244,7 @@ export default function PlayZoneGame({
             <path d="M12 28 L20 34 L24 25" stroke="var(--red)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <p className="font-display text-paper/90 text-[3.6cqw] tracking-[0.18em] uppercase whitespace-nowrap">
-            Press space to jump
+            {playing ? "Press space to jump" : "Press space to start"}
           </p>
           <span className="inline-flex -scale-x-100">
             <svg viewBox="0 0 30 40" className="w-[4cqw] h-[5cqw] pz-arrow" fill="none" aria-hidden="true">
@@ -278,7 +281,7 @@ export default function PlayZoneGame({
                 x2="20"
                 y2="0"
                 stroke="var(--yellow)"
-                strokeWidth="2.5"
+                strokeWidth="1.3"
                 strokeLinecap="round"
                 transform={`rotate(${a} 20 20)`}
               />
@@ -291,7 +294,7 @@ export default function PlayZoneGame({
                 x2="20"
                 y2="0"
                 stroke="var(--yellow)"
-                strokeWidth="2.5"
+                strokeWidth="1.3"
                 strokeLinecap="round"
                 transform={`rotate(${a} 20 20)`}
               />
@@ -319,14 +322,15 @@ export default function PlayZoneGame({
         />
       ))}
 
-      {/* player phone */}
+      {/* player phone — idle: centered; on start it slides to the running lane */}
       <div
         className="absolute"
         style={{
-          left: pct(PLAYER_X, W),
+          left: pct(playing ? PLAYER_X : (W - PLAYER_W) / 2, W),
           top: pct(GROUND - PLAYER_H - frame.py, H),
           width: pct(PLAYER_W, W),
           height: pct(PLAYER_H, H),
+          transition: "left 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
         }}
       >
         {/* speed lines trailing the phone while running */}

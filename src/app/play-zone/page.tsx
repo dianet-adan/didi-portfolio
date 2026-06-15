@@ -13,38 +13,6 @@ type Status = "intro" | "playing" | "lost" | "won";
 const btn =
   "inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base border-2 border-ink rounded-full px-6 py-3 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all";
 
-// hand-drawn wiggle lines that draw themselves on hover of "Let's play"
-function WiggleLines() {
-  return (
-    <svg
-      viewBox="0 0 140 60"
-      fill="none"
-      aria-hidden="true"
-      className="pointer-events-none absolute -inset-x-4 -inset-y-3 w-[calc(100%+2rem)] h-[calc(100%+1.5rem)] overflow-visible"
-    >
-      {[
-        "M8 14 C 2 8, 14 2, 20 8",
-        "M132 14 C 138 8, 126 2, 120 8",
-        "M10 50 C 4 56, 16 58, 22 52",
-        "M130 50 C 136 56, 124 58, 118 52",
-      ].map((d, i) => (
-        <path
-          key={i}
-          d={d}
-          stroke="var(--yellow)"
-          strokeWidth="3"
-          strokeLinecap="round"
-          pathLength={1}
-          strokeDasharray="1"
-          strokeDashoffset="1"
-          className="transition-[stroke-dashoffset] duration-300 ease-out group-hover/play:[stroke-dashoffset:0]"
-          style={{ transitionDelay: `${i * 40}ms` }}
-        />
-      ))}
-    </svg>
-  );
-}
-
 // little curved arrow doodle that floats near the joke note
 function NoteDoodle() {
   return (
@@ -83,10 +51,10 @@ export default function PlayZonePage() {
     if (saved) setHighScore(saved);
   }, []);
 
-  const start = () => {
+  const start = useCallback(() => {
     setRunId((r) => r + 1);
     setStatus("playing");
-  };
+  }, []);
 
   const onEnd = useCallback((score: number, won: boolean) => {
     setHighScore((hs) => {
@@ -105,7 +73,7 @@ export default function PlayZonePage() {
         <div className="relative max-w-[1640px] mx-auto px-5 md:px-12 pt-24 md:pt-28 pb-10 grid grid-cols-1 lg:grid-cols-[1fr_1.12fr] gap-10 lg:gap-16 items-center lg:min-h-[calc(100vh-1rem)]">
           {/* left: intro copy + notes */}
           <div className="relative order-2 lg:order-1">
-            <div className="relative w-72 md:w-[26rem] -rotate-2 mb-5">
+            <div className="relative z-10 w-72 md:w-[26rem] -rotate-2 -mb-4 md:-mb-7">
               <Image
                 src="/images/play-zone/welcome.png"
                 alt="Welcome to"
@@ -116,7 +84,7 @@ export default function PlayZonePage() {
               />
             </div>
 
-            <h1 className="font-display uppercase leading-[0.9] text-yellow text-[16vw] sm:text-[11vw] lg:text-[6.6vw]">
+            <h1 className="relative font-display uppercase leading-[0.9] text-yellow text-[16vw] sm:text-[11vw] lg:text-[6.6vw]">
               The Play Zone
             </h1>
             <p className="font-serif-italic text-3xl md:text-5xl text-paper/90 mt-4">
@@ -127,14 +95,17 @@ export default function PlayZonePage() {
             <div className="flex flex-wrap items-center gap-4 mt-9">
               {status === "intro" || status === "playing" ? (
                 <>
-                  <button
+                  <motion.button
                     onClick={start}
-                    className={`group/play relative ${btn} bg-red text-paper text-base md:text-lg px-7 py-3.5`}
+                    animate={{ rotate: [-1.5, 1.5, -1.5], y: [0, -3, 0] }}
+                    transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                    whileHover={{ scale: 1.06, rotate: 0 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`${btn} bg-red text-paper text-base md:text-lg px-7 py-3.5`}
                   >
                     {status === "playing" ? "Restart" : "Let's play"}{" "}
                     <span aria-hidden="true">&rarr;</span>
-                    <WiggleLines />
-                  </button>
+                  </motion.button>
                   <Link
                     href="/"
                     className={`${btn} bg-paper text-ink text-base md:text-lg px-7 py-3.5`}
@@ -175,21 +146,22 @@ export default function PlayZonePage() {
                 />
                 <NoteDoodle />
               </div>
-              {/* loose stickers */}
-              <Image
-                src="/images/stickers/6.png"
-                alt=""
-                width={120}
-                height={120}
-                className="w-16 md:w-20 h-auto -rotate-12 self-center"
-              />
-              <Image
-                src="/images/stickers/5.png"
-                alt=""
-                width={120}
-                height={120}
-                className="w-16 md:w-20 h-auto rotate-6 self-center"
-              />
+
+              {/* stickers overlapping the paper notes */}
+              <motion.div
+                animate={{ rotate: [-12, -6, -12], y: [0, -3, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-6 -left-5 z-20 w-16 md:w-20 drop-shadow-[2px_3px_0_rgba(0,0,0,0.2)]"
+              >
+                <Image src="/images/stickers/6.png" alt="" width={120} height={120} className="w-full h-auto" />
+              </motion.div>
+              <motion.div
+                animate={{ rotate: [6, 12, 6], y: [0, -3, 0] }}
+                transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+                className="absolute -bottom-7 left-[38%] z-20 w-16 md:w-20 drop-shadow-[2px_3px_0_rgba(0,0,0,0.2)]"
+              >
+                <Image src="/images/stickers/5.png" alt="" width={120} height={120} className="w-full h-auto" />
+              </motion.div>
             </div>
           </div>
 
@@ -200,6 +172,7 @@ export default function PlayZonePage() {
               playing={status === "playing"}
               highScore={highScore}
               onEnd={onEnd}
+              onStart={start}
             />
 
             {/* state overlays — only on lose / win */}
@@ -212,7 +185,7 @@ export default function PlayZonePage() {
                   transition={{ duration: 0.3 }}
                   className="absolute inset-0 flex items-center justify-center p-6"
                 >
-                  <div className="absolute inset-0 bg-blue-deep/55 rounded-[2rem]" />
+                  <div className="absolute inset-0 bg-ink/82 rounded-[2rem]" />
                   <div className="relative text-center max-w-sm">
                     {status === "lost" && (
                       <>
