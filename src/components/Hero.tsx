@@ -177,7 +177,7 @@ export default function Hero() {
       >
         <div className="relative w-full aspect-[941/1672]">
           <Image
-            src="/images/base/me-portrait-framed.png"
+            src="/images/base/me.png"
             alt="Dianet Adán"
             fill
             sizes="480px"
