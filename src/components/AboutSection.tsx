@@ -123,10 +123,10 @@ export default function AboutSection() {
         >
           <div className="relative w-full max-w-lg mx-auto lg:mx-0 aspect-[941/1672] -rotate-2">
             <Image
-              src="/images/base/me-portrait-framed.png"
+              src="/images/base/me.png"
               alt="Dianet Adán"
               fill
-              sizes="(max-width: 1024px) 75vw, 440px"
+              sizes="(max-width: 1024px) 75vw, 512px"
               className="object-contain drop-shadow-[10px_14px_0_rgba(34,28,20,0.15)]"
             />
           </div>

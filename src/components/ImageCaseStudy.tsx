@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useRef } from "react";
 import { projects, Project } from "@/lib/projects";
-import { useTransitionNav } from "./TransitionProvider";
+import { useTransitionNav, useTransitionArrival } from "./TransitionProvider";
 
 const transitionColor: Record<Project["category"], string> = {
   uxui: "var(--yellow)",
@@ -117,17 +118,27 @@ export default function ImageCaseStudy({ project }: { project: Project }) {
   const nextProject = projects[(index + 1) % projects.length];
   const transitionNav = useTransitionNav();
 
-  // single, simple entrance: fade-up on view. The color wipe covers the first
-  // ~0.8s of a transition, so this entrance settles before the page is
-  // revealed — smooth and stable from project to project.
-  const heroAnim = (delay: number) => ({
-    variants: fadeUp,
-    initial: "hidden" as const,
-    whileInView: "show" as const,
-    viewport: { once: true, amount: 0.4 },
-    transition: { duration: 0.6, delay },
-  });
+  // True when this page was entered through the color wipe (project → project).
+  // Read once on mount: in that case the wipe already provides the motion, so
+  // the hero renders settled instead of fading up underneath the lifting plane
+  // — which is what made the project-to-project transition feel jittery.
+  const arrived = useRef(useTransitionArrival()()).current;
 
+  // hero (above the fold): skip the entrance when arriving via the wipe so the
+  // reveal shows settled content; animate normally on a direct visit.
+  const heroAnim = (delay: number) =>
+    arrived
+      ? {}
+      : {
+          variants: fadeUp,
+          initial: "hidden" as const,
+          whileInView: "show" as const,
+          viewport: { once: true, amount: 0.4 },
+          transition: { duration: 0.6, delay },
+        };
+
+  // below-the-fold sections always reveal on scroll — they never overlap the
+  // wipe, so this stays consistent whether arrived or not.
   const inView = (delay = 0) => ({
     variants: fadeUp,
     initial: "hidden" as const,
@@ -216,10 +227,14 @@ export default function ImageCaseStudy({ project }: { project: Project }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
+          {...(arrived
+            ? {}
+            : {
+                initial: { opacity: 0 },
+                whileInView: { opacity: 1 },
+                viewport: { once: true, amount: 0.25 },
+                transition: { duration: 0.7, delay: 0.1 },
+              })}
           className={`relative z-[40] mx-auto -mt-14 w-[92%] max-w-lg px-0 md:mx-0 md:mt-0 md:absolute md:top-[36%] md:-translate-y-1/2 md:w-[47%] md:max-w-2xl ${notePos}`}
         >
           <div
