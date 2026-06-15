@@ -32,7 +32,7 @@ export default function ArchiveSection() {
         </p>
         <Link
           href="/projects"
-          className="mt-8 inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base border-2 border-ink rounded-full px-6 py-3 bg-yellow shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0_var(--ink)] transition-all"
+          className="mt-8 inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base border-2 border-ink rounded-full px-7 py-3.5 bg-yellow shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
         >
           View all projects <span aria-hidden="true">&rarr;</span>
         </Link>

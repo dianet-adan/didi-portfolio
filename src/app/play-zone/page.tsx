@@ -11,7 +11,7 @@ import PlayZoneGame from "@/components/PlayZoneGame";
 type Status = "intro" | "playing" | "lost" | "won";
 
 const btn =
-  "inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base border-2 border-ink rounded-full px-6 py-3 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all";
+  "inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all";
 
 // little curved arrow doodle that floats near the joke note
 function NoteDoodle() {
@@ -101,14 +101,14 @@ export default function PlayZonePage() {
                     transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.06, rotate: 0 }}
                     whileTap={{ scale: 0.97 }}
-                    className={`${btn} bg-red text-paper text-base md:text-lg px-7 py-3.5`}
+                    className={`${btn} bg-red text-paper`}
                   >
                     {status === "playing" ? "Restart" : "Let's play"}{" "}
                     <span aria-hidden="true">&rarr;</span>
                   </motion.button>
                   <Link
                     href="/"
-                    className={`${btn} bg-paper text-ink text-base md:text-lg px-7 py-3.5`}
+                    className={`${btn} bg-paper text-ink`}
                   >
                     Return to archive
                   </Link>

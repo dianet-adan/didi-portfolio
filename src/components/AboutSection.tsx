@@ -111,7 +111,7 @@ export default function AboutSection() {
       id="about"
       className="relative bg-cream grid-paper px-5 md:px-10 pt-28 md:pt-36 pb-24 md:pb-32 overflow-hidden"
     >
-      <div className="relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="relative max-w-[84rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
         {/* portrait — pinned, tilted print */}
         <motion.div
           variants={fadeUp}
@@ -121,7 +121,7 @@ export default function AboutSection() {
           transition={{ duration: 0.6 }}
           className="lg:col-span-5 order-2 lg:order-1"
         >
-          <div className="relative w-full max-w-md mx-auto aspect-[941/1672] -rotate-2">
+          <div className="relative w-full max-w-lg mx-auto lg:mx-0 aspect-[941/1672] -rotate-2">
             <Image
               src="/images/base/me-portrait-framed.png"
               alt="Dianet Adán"
