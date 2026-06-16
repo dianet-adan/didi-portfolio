@@ -216,6 +216,22 @@ export default function PlayZoneGame({
       }}
       aria-label="Play Zone runner game"
     >
+      {/* drifting background clouds */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/play-zone/cloud.png"
+        alt=""
+        aria-hidden="true"
+        className="pz-cloud pointer-events-none absolute top-[14%] left-0 w-[26%] opacity-90"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/play-zone/cloud2.png"
+        alt=""
+        aria-hidden="true"
+        className="pz-cloud-2 pointer-events-none absolute top-[30%] left-0 w-[20%] opacity-80"
+      />
+
       {/* score labels */}
       <div className="absolute top-[5%] left-[5%] w-[18%]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -236,15 +252,15 @@ export default function PlayZoneGame({
         </p>
       </div>
 
-      {/* hint with little hand-drawn arrows */}
-      {displayScore < 80 && (
+      {/* jump hint while playing — the start instructions live on the page */}
+      {playing && displayScore < 80 && (
         <div className="absolute top-[33%] left-1/2 -translate-x-1/2 flex items-center gap-[2cqw]">
           <svg viewBox="0 0 30 40" className="w-[4cqw] h-[5cqw] pz-arrow" fill="none" aria-hidden="true">
             <path d="M22 6 C 8 14, 8 26, 20 34" stroke="var(--red)" strokeWidth="3" strokeLinecap="round" />
             <path d="M12 28 L20 34 L24 25" stroke="var(--red)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <p className="font-display text-paper/90 text-[3.6cqw] tracking-[0.18em] uppercase whitespace-nowrap">
-            {playing ? "Press space to jump" : "Press space to start"}
+            Press space to jump
           </p>
           <span className="inline-flex -scale-x-100">
             <svg viewBox="0 0 30 40" className="w-[4cqw] h-[5cqw] pz-arrow" fill="none" aria-hidden="true">
@@ -411,6 +427,28 @@ export default function PlayZoneGame({
           50% {
             opacity: 0.9;
             transform: scale(1.1) rotate(20deg);
+          }
+        }
+        :global(.pz-cloud) {
+          animation: pzcloud 30s linear infinite;
+        }
+        :global(.pz-cloud-2) {
+          animation: pzcloud2 42s linear infinite;
+        }
+        @keyframes pzcloud {
+          from {
+            transform: translateX(120cqw);
+          }
+          to {
+            transform: translateX(-170cqw);
+          }
+        }
+        @keyframes pzcloud2 {
+          from {
+            transform: translateX(160cqw);
+          }
+          to {
+            transform: translateX(-180cqw);
           }
         }
       `}</style>

@@ -109,9 +109,9 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative bg-cream grid-paper px-5 md:px-10 pt-28 md:pt-36 pb-24 md:pb-32 overflow-hidden"
+      className="relative bg-cream grid-paper px-5 md:px-10 pt-24 md:pt-28 pb-24 md:pb-32 overflow-hidden"
     >
-      <div className="relative max-w-[84rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+      <div className="relative max-w-[84rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
         {/* portrait — pinned, tilted print */}
         <motion.div
           variants={fadeUp}

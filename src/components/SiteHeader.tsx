@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import DownloadCVButton from "./DownloadCVButton";
 
 const links = [
   { label: "Projects", href: "/projects" },
@@ -56,13 +57,7 @@ export default function SiteHeader() {
             </Link>
           );
         })}
-        <a
-          href="/cv/dianet-adan-cv.pdf"
-          download
-          className="font-display font-normal text-sm uppercase tracking-wide bg-yellow text-ink border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--ink)] transition-transform rotate-1"
-        >
-          Download CV
-        </a>
+        <DownloadCVButton className="font-display font-normal text-sm uppercase tracking-wide bg-yellow text-ink border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--ink)] transition-transform rotate-1" />
       </nav>
 
       <button
@@ -106,14 +101,10 @@ export default function SiteHeader() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="/cv/dianet-adan-cv.pdf"
-              download
+            <DownloadCVButton
               onClick={() => setOpen(false)}
               className="font-display font-normal text-sm uppercase tracking-wide bg-yellow text-ink border-2 border-ink rounded-full px-4 py-1.5 shadow-[2px_2px_0_var(--ink)] rotate-1"
-            >
-              Download CV
-            </a>
+            />
             </motion.nav>
           </>
         )}
