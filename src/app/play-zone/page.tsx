@@ -95,6 +95,12 @@ export default function PlayZonePage() {
             <p className="font-serif-italic text-3xl md:text-5xl text-paper/90 mt-4">
               a tiny break from the archive.
             </p>
+            <p className="mt-5 max-w-md text-base md:text-lg text-paper/80 leading-relaxed">
+              Click the game screen to start. Press{" "}
+              <span className="font-semibold text-paper">space</span> &mdash; or
+              click &mdash; to jump. Dodge the archive clutter and grab as many{" "}
+              <span className="font-semibold text-yellow">stars</span> as you can.
+            </p>
 
             {/* contextual CTAs */}
             <div className="flex flex-wrap items-center gap-4 mt-9">
@@ -177,25 +183,28 @@ export default function PlayZonePage() {
             transition={{ duration: 0.6, delay: 0.12, ease: "easeOut" }}
             className="relative order-1 lg:order-2"
           >
-            <PlayZoneGame
-              key={runId}
-              playing={status === "playing"}
-              highScore={highScore}
-              onEnd={onEnd}
-              onStart={start}
-            />
+            {/* tight wrapper so the lose/win overlay matches the game screen
+                exactly instead of spilling past it */}
+            <div className="relative">
+              <PlayZoneGame
+                key={runId}
+                playing={status === "playing"}
+                highScore={highScore}
+                onEnd={onEnd}
+                onStart={start}
+              />
 
-            {/* state overlays — only on lose / win */}
-            <AnimatePresence>
-              {(status === "lost" || status === "won") && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute inset-0 flex items-center justify-center p-6"
-                >
-                  <div className="absolute inset-0 bg-ink/82 rounded-[2rem]" />
+              {/* state overlays — only on lose / win, clipped to the screen */}
+              <AnimatePresence>
+                {(status === "lost" || status === "won") && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 flex items-center justify-center p-6 overflow-hidden rounded-[2rem]"
+                  >
+                    <div className="absolute inset-0 bg-ink/82" />
                   <div className="relative text-center max-w-sm">
                     {status === "lost" && (
                       <>
@@ -246,9 +255,10 @@ export default function PlayZonePage() {
                       </>
                     )}
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* collect stars note */}
             <div className="relative w-80 md:w-[28rem] mx-auto mt-7 -rotate-1">

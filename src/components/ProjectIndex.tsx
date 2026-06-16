@@ -52,14 +52,18 @@ export default function ProjectIndex({
   showHeading = true,
   featured = false,
   bare = false,
+  category,
 }: {
   showHeading?: boolean;
   featured?: boolean;
   bare?: boolean;
+  category?: Project["category"];
 }) {
   const [active, setActive] = useState<string | null>(null);
   const transitionNav = useTransitionNav();
-  const items = featured
+  const items = category
+    ? indexItems.filter((item) => item.project.category === category)
+    : featured
     ? indexItems.filter((item) => featuredSlugs.includes(item.slug))
     : indexItems;
 

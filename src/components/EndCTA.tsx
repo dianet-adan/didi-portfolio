@@ -30,8 +30,38 @@ function SoundArcs({ flip = false }: { flip?: boolean }) {
   );
 }
 
+const EMAIL = "hello@dianetadan.com";
+
 export default function EndCTA({ fullHeight = false }: { fullHeight?: boolean }) {
   const [ringing, setRinging] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      ok = true;
+    } catch {
+      // clipboard API unavailable (insecure context / iframe) — legacy fallback
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = EMAIL;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+      } catch {
+        ok = false;
+      }
+    }
+    if (ok) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
   return (
     <section
       id="contact"
@@ -170,12 +200,14 @@ export default function EndCTA({ fullHeight = false }: { fullHeight?: boolean })
             transition={{ duration: 0.6, delay: 0.25 }}
             className="mt-10 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4"
           >
-            <a
-              href="mailto:hello@dianetadan.com"
+            <button
+              type="button"
+              onClick={copyEmail}
+              aria-label={`Copy email ${EMAIL} to clipboard`}
               className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base bg-yellow text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
             >
-              hello@dianetadan.com
-            </a>
+              {copied ? "Copied to clipboard ✓" : EMAIL}
+            </button>
             <Link
               href="/projects"
               className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base bg-paper text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"

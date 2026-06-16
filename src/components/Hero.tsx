@@ -125,7 +125,7 @@ export default function Hero() {
         </RevealLine>
         <RevealLine
           delay={0.32}
-          className="type-hero-accent mt-2 md:mt-4"
+          className="type-hero-accent mt-2 md:mt-4 pb-[0.22em] -mb-[0.22em]"
         >
           <span className="text-ink">&amp; </span>
           <span className="font-serif-italic text-red">Visual Systems</span>

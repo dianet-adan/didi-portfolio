@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FolderData } from "@/lib/projects";
-import ProjectDocument from "./ProjectDocument";
+import ProjectIndex from "./ProjectIndex";
 
 export default function CategoryPage({ folder }: { folder: FolderData }) {
   return (
-    <section className="relative grid-paper px-5 md:px-10 pt-32 pb-24 md:pb-32 overflow-hidden">
-      <div className="relative max-w-5xl mx-auto">
+    <section className="relative grid-paper pt-32 pb-24 md:pb-32 overflow-hidden">
+      <div className="px-5 md:px-10">
         <Link
           href="/projects"
           className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-b-2 border-ink/40 pb-0.5 hover:border-ink transition-colors"
@@ -46,14 +46,10 @@ export default function CategoryPage({ folder }: { folder: FolderData }) {
         >
           {folder.intro}
         </motion.p>
-
-        {/* opened folder composition: documents inside */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16 mt-20 md:mt-28">
-          {folder.projects.map((project, idx) => (
-            <ProjectDocument key={project.slug} project={project} index={idx} />
-          ))}
-        </div>
       </div>
+
+      {/* same full-bleed index rows used across the site, filtered to this discipline */}
+      <ProjectIndex showHeading={false} bare category={folder.id} />
     </section>
   );
 }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import SiteFooter from "./SiteFooter";
+import DownloadCVButton from "./DownloadCVButton";
 
 export default function ContactTeaser() {
   return (
@@ -41,13 +42,7 @@ export default function ContactTeaser() {
           >
             Get in touch <span aria-hidden="true">&rarr;</span>
           </Link>
-          <a
-            href="/cv/dianet-adan-cv.pdf"
-            download
-            className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base bg-paper text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
-          >
-            Download CV <span aria-hidden="true">&darr;</span>
-          </a>
+          <DownloadCVButton className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base bg-paper text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all" />
         </motion.div>
       </div>
 
