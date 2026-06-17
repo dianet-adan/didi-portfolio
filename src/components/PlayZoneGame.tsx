@@ -338,7 +338,7 @@ export default function PlayZoneGame({
         />
       ))}
 
-      {/* player phone — idle: centered; on start it slides to the running lane */}
+      {/* player phone — hidden when idle (big overlay handles that); visible once playing starts */}
       <div
         className="absolute"
         style={{
@@ -346,7 +346,8 @@ export default function PlayZoneGame({
           top: pct(GROUND - PLAYER_H - frame.py, H),
           width: pct(PLAYER_W, W),
           height: pct(PLAYER_H, H),
-          transition: "left 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
+          opacity: playing ? 1 : 0,
+          transition: "left 0.5s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.25s ease",
         }}
       >
         {/* speed lines trailing the phone while running */}

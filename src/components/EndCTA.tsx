@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import SiteFooter from "./SiteFooter";
 
-const FORM_EMAIL = "hello.dianetadan@gmail.com";
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/hello.dianetadan@gmail.com";
 
 const REASONS = [
   "Project Collaboration",
@@ -17,10 +17,11 @@ const REASONS = [
   "Other",
 ];
 
+// Input styles — full contrast on the dark blue background
 const fieldBase =
-  "w-full rounded-full border-2 border-paper/20 bg-paper/8 px-5 py-3 font-display text-sm text-paper placeholder:text-paper/35 outline-none transition-colors focus:border-yellow/70 focus:bg-paper/12";
+  "w-full rounded-full border-2 border-paper/50 bg-paper/15 px-5 py-3.5 font-display font-normal text-base text-paper placeholder:text-paper/55 outline-none transition-colors focus:border-yellow focus:bg-paper/20";
 const labelBase =
-  "block font-display text-[11px] uppercase tracking-[0.18em] text-paper/50 mb-1.5";
+  "block font-display font-normal text-sm uppercase tracking-widest text-paper mb-2";
 
 function SoundArcs({ flip = false }: { flip?: boolean }) {
   return (
@@ -53,17 +54,33 @@ export default function EndCTA({ fullHeight = false }: { fullHeight?: boolean })
   const [copied, setCopied] = useState(false);
   const [form, setForm] = useState({ email: "", reason: "", phone: "", message: "" });
   const [formSent, setFormSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = form.reason ? `Portfolio inquiry: ${form.reason}` : "Portfolio inquiry";
-    const body = [
-      form.message,
-      form.phone ? `\nPhone: ${form.phone}` : "",
-      `\n\nFrom: ${form.email}`,
-    ].join("");
-    window.location.href = `mailto:${FORM_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setFormSent(true);
+    setSubmitting(true);
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          email: form.email,
+          reason: form.reason,
+          phone: form.phone || "Not provided",
+          message: form.message,
+          _subject: `Portfolio inquiry: ${form.reason || "New message"}`,
+        }),
+      });
+      const data = await res.json();
+      if (data.success === "true" || res.ok) setFormSent(true);
+    } catch {
+      // fallback: open mail client
+      const body = [form.message, form.phone ? `\nPhone: ${form.phone}` : "", `\n\nFrom: ${form.email}`].join("");
+      window.location.href = `mailto:hello.dianetadan@gmail.com?subject=${encodeURIComponent(`Portfolio inquiry: ${form.reason}`)}&body=${encodeURIComponent(body)}`;
+      setFormSent(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const copyEmail = async () => {
@@ -101,6 +118,27 @@ export default function EndCTA({ fullHeight = false }: { fullHeight?: boolean })
           : "py-16 md:py-20"
       }`}
     >
+      {/* ── Scroll hint — right edge, only on contact page ── */}
+      {fullHeight && (
+        <div className="pointer-events-none absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-3">
+          <span
+            className="font-display font-normal text-[10px] uppercase tracking-[0.22em] text-paper/50"
+            style={{ writingMode: "vertical-rl", letterSpacing: "0.22em" }}
+          >
+            scroll
+          </span>
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg viewBox="0 0 20 32" fill="none" className="w-5 h-8 text-paper/50">
+              <line x1="10" y1="0" x2="10" y2="24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M3 18 L10 26 L17 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </motion.div>
+        </div>
+      )}
+
       <div className="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.15fr] gap-10 md:gap-8 items-center w-full flex-1">
         {/* phone receiver — nudged left and down */}
         <motion.div
@@ -335,9 +373,10 @@ export default function EndCTA({ fullHeight = false }: { fullHeight?: boolean })
                 <div className="sm:col-span-2">
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base bg-yellow text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
+                    disabled={submitting}
+                    className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base bg-yellow text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all disabled:opacity-60 disabled:pointer-events-none"
                   >
-                    Send message &rarr;
+                    {submitting ? "Sending…" : "Send message →"}
                   </button>
                 </div>
               </form>

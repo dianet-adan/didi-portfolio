@@ -193,7 +193,7 @@ export default function PlayZonePage() {
                 onStart={start}
               />
 
-              {/* ── Big mascot overlay — intro state only ── */}
+              {/* ── Big mascot overlay — intro state only, click to start ── */}
               <AnimatePresence>
                 {status === "intro" && (
                   <motion.div
@@ -202,27 +202,32 @@ export default function PlayZonePage() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{
                       opacity: 0,
-                      scale: 0.18,
-                      x: "-55%",
-                      transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+                      scale: 0.12,
+                      x: "-38%",
+                      y: "30%",
+                      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
                     }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-[2rem] overflow-hidden"
+                    onClick={start}
+                    className="absolute inset-0 z-10 flex items-center justify-center rounded-[2rem] overflow-hidden cursor-pointer"
                   >
-                    {/* frosted background so the idle game canvas doesn't compete */}
+                    {/* frosted background */}
                     <div className="absolute inset-0 bg-blue/60 backdrop-blur-[2px]" />
                     <motion.img
                       src="/images/play-zone/phone.png"
-                      alt=""
-                      aria-hidden="true"
+                      alt="Click to start"
                       animate={{ y: [0, -18, 0] }}
-                      transition={{
-                        duration: 2.6,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
+                      transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
                       className="relative w-[38%] drop-shadow-[12px_20px_0_rgba(0,0,0,0.4)]"
                     />
+                    {/* "tap to start" hint */}
+                    <motion.p
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute bottom-[12%] font-display font-normal text-sm uppercase tracking-widest text-paper/80"
+                    >
+                      Click to start
+                    </motion.p>
                   </motion.div>
                 )}
               </AnimatePresence>
