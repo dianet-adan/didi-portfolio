@@ -366,7 +366,7 @@ export default function EndCTA({ fullHeight = false }: { fullHeight?: boolean })
                     placeholder="Tell me about your project or idea…"
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className={`${fieldBase} rounded-2xl resize-none`}
+                    className={`${fieldBase} !rounded-xl resize-none`}
                   />
                 </div>
 
