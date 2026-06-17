@@ -6,6 +6,22 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import SiteFooter from "./SiteFooter";
 
+const FORM_EMAIL = "hello.dianetadan@gmail.com";
+
+const REASONS = [
+  "Project Collaboration",
+  "Freelance Inquiry",
+  "Full-time Opportunity",
+  "Brand / Creative Direction",
+  "General Question",
+  "Other",
+];
+
+const fieldBase =
+  "w-full rounded-full border-2 border-paper/20 bg-paper/8 px-5 py-3 font-display text-sm text-paper placeholder:text-paper/35 outline-none transition-colors focus:border-yellow/70 focus:bg-paper/12";
+const labelBase =
+  "block font-display text-[11px] uppercase tracking-[0.18em] text-paper/50 mb-1.5";
+
 function SoundArcs({ flip = false }: { flip?: boolean }) {
   return (
     <svg
@@ -35,6 +51,20 @@ const EMAIL = "hello@dianetadan.com";
 export default function EndCTA({ fullHeight = false }: { fullHeight?: boolean }) {
   const [ringing, setRinging] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [form, setForm] = useState({ email: "", reason: "", phone: "", message: "" });
+  const [formSent, setFormSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subject = form.reason ? `Portfolio inquiry: ${form.reason}` : "Portfolio inquiry";
+    const body = [
+      form.message,
+      form.phone ? `\nPhone: ${form.phone}` : "",
+      `\n\nFrom: ${form.email}`,
+    ].join("");
+    window.location.href = `mailto:${FORM_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setFormSent(true);
+  };
 
   const copyEmail = async () => {
     let ok = false;
@@ -217,6 +247,104 @@ export default function EndCTA({ fullHeight = false }: { fullHeight?: boolean })
           </motion.div>
         </div>
       </div>
+
+      {/* ── Contact form — visible only on the full-height contact page ── */}
+      {fullHeight && (
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="relative max-w-6xl mx-auto w-full mt-6 mb-10"
+        >
+          <div className="border-t-2 border-paper/15 pt-10">
+            <span className="inline-block font-display text-xs uppercase tracking-[0.22em] text-paper/45 mb-8">
+              Or send a message directly
+            </span>
+
+            {formSent ? (
+              <p className="font-display text-2xl md:text-3xl text-yellow">
+                Message on its way — I&apos;ll be in touch soon ✦
+              </p>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                className="grid gap-5 sm:grid-cols-2"
+              >
+                {/* Email */}
+                <div className="sm:col-span-1">
+                  <label className={labelBase}>Your email *</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@studio.com"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className={fieldBase}
+                  />
+                </div>
+
+                {/* Reason */}
+                <div className="sm:col-span-1">
+                  <label className={labelBase}>Reason for reaching out *</label>
+                  <select
+                    required
+                    value={form.reason}
+                    onChange={(e) => setForm({ ...form, reason: e.target.value })}
+                    className={`${fieldBase} cursor-pointer appearance-none`}
+                  >
+                    <option value="" disabled>Select a reason…</option>
+                    {REASONS.map((r) => (
+                      <option key={r} value={r} className="bg-blue text-paper">
+                        {r}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Phone */}
+                <div className="sm:col-span-1">
+                  <label className={labelBase}>
+                    Phone{" "}
+                    <span className="text-paper/30 normal-case tracking-normal">
+                      (optional)
+                    </span>
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="+1 000 000 0000"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className={fieldBase}
+                  />
+                </div>
+
+                {/* Message */}
+                <div className="sm:col-span-2">
+                  <label className={labelBase}>Message *</label>
+                  <textarea
+                    required
+                    rows={4}
+                    placeholder="Tell me about your project or idea…"
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    className={`${fieldBase} rounded-2xl resize-none`}
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <button
+                    type="submit"
+                    className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base bg-yellow text-ink border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
+                  >
+                    Send message &rarr;
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </motion.div>
+      )}
 
       <SiteFooter />
     </section>
