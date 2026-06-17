@@ -41,26 +41,38 @@ export default function ProjectsPage() {
           </p>
         </section>
 
-        {/* ── Sticky tab bar ── */}
-        <div className="sticky top-[72px] z-40 bg-cream/90 backdrop-blur-sm border-b-2 border-ink/10 px-5 md:px-10 py-3 mt-6">
-          <div className="no-scrollbar flex gap-2 overflow-x-auto">
-            {TABS.map((tab) => {
-              const isActive = active === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActive(tab.id)}
-                  className={`shrink-0 font-display font-normal text-xs md:text-sm uppercase tracking-widest rounded-full border-2 border-ink px-5 py-2 shadow-[2px_2px_0_var(--ink)] transition-all hover:-translate-y-0.5 ${
-                    isActive
-                      ? `${tab.activeBg} ${tab.activeText}`
-                      : "bg-transparent text-ink/55 hover:text-ink"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
+        {/* ── Filter tabs — inline, same area as the section header ── */}
+        <div className="px-5 md:px-10 mt-8 flex flex-wrap gap-3">
+          {TABS.map((tab) => {
+            const isActive = active === tab.id;
+            // category colors match the original folder links; active = brightness-75
+            const COLOR: Record<Tab, string> = {
+              all:         "var(--ink)",
+              uxui:        "var(--yellow)",
+              branding:    "var(--red)",
+              advertising: "var(--blue)",
+            };
+            const TEXT: Record<Tab, string> = {
+              all:         "var(--paper)",
+              uxui:        "var(--ink)",
+              branding:    "var(--paper)",
+              advertising: "var(--paper)",
+            };
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActive(tab.id)}
+                style={{
+                  background: COLOR[tab.id],
+                  color: TEXT[tab.id],
+                  filter: isActive ? "brightness(0.78)" : "none",
+                }}
+                className="inline-flex items-center gap-2 font-display font-normal uppercase tracking-widest text-sm md:text-base border-2 border-ink rounded-full px-7 py-3.5 shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
+              >
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* ── Project rows — re-animate on tab change ── */}

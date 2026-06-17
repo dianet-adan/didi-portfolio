@@ -221,7 +221,7 @@ export default function PlayZonePage() {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
-                      className="relative w-[58%] drop-shadow-[12px_20px_0_rgba(0,0,0,0.4)]"
+                      className="relative w-[38%] drop-shadow-[12px_20px_0_rgba(0,0,0,0.4)]"
                     />
                   </motion.div>
                 )}
