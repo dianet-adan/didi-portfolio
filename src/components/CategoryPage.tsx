@@ -11,10 +11,13 @@ export default function CategoryPage({ folder }: { folder: FolderData }) {
       <div className="px-5 md:px-10">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 font-display font-normal text-sm uppercase tracking-widest border-b-2 border-ink/40 pb-0.5 hover:border-ink transition-colors"
+          className="inline-flex items-center gap-2 font-display font-normal text-base md:text-lg uppercase tracking-widest border-2 border-ink rounded-full px-7 py-3.5 bg-paper shadow-[4px_4px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
         >
           &larr; All projects
         </Link>
+
+        {/* 32px fixed gap between back button and folder badge */}
+        <div className="mt-8" />
 
         <motion.div
           initial={{ opacity: 0, y: 28 }}

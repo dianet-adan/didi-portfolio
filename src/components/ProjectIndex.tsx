@@ -108,8 +108,12 @@ export default function ProjectIndex({
           const { project } = item;
           const isActive = active === item.slug;
           return (
-            <div
+            <motion.div
               key={item.slug}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               className={`relative ${isActive ? "z-20" : "z-0"}`}
             >
               <Link
@@ -184,7 +188,7 @@ export default function ProjectIndex({
                   className="object-cover"
                 />
               </motion.div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

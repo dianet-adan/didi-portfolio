@@ -183,8 +183,7 @@ export default function PlayZonePage() {
             transition={{ duration: 0.6, delay: 0.12, ease: "easeOut" }}
             className="relative order-1 lg:order-2"
           >
-            {/* tight wrapper so the lose/win overlay matches the game screen
-                exactly instead of spilling past it */}
+            {/* tight wrapper so overlays match the game screen exactly */}
             <div className="relative">
               <PlayZoneGame
                 key={runId}
@@ -193,6 +192,40 @@ export default function PlayZonePage() {
                 onEnd={onEnd}
                 onStart={start}
               />
+
+              {/* ── Big mascot overlay — intro state only ── */}
+              <AnimatePresence>
+                {status === "intro" && (
+                  <motion.div
+                    key="big-mascot"
+                    initial={{ opacity: 0, scale: 0.6 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.18,
+                      x: "-55%",
+                      transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+                    }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-[2rem] overflow-hidden"
+                  >
+                    {/* frosted background so the idle game canvas doesn't compete */}
+                    <div className="absolute inset-0 bg-blue/60 backdrop-blur-[2px]" />
+                    <motion.img
+                      src="/images/play-zone/phone.png"
+                      alt=""
+                      aria-hidden="true"
+                      animate={{ y: [0, -18, 0] }}
+                      transition={{
+                        duration: 2.6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      className="relative w-[58%] drop-shadow-[12px_20px_0_rgba(0,0,0,0.4)]"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* state overlays — only on lose / win, clipped to the screen */}
               <AnimatePresence>
